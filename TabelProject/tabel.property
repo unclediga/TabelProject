@@ -1,0 +1,3 @@
+db.connect.string=jdbc:h2:/TEMP/testdb;IFEXISTS=TRUE
+db.connect.user=sa
+db.connect.password=

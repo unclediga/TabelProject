@@ -1,5 +1,3 @@
-import org.h2.util.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -48,7 +46,7 @@ public class EmpTable extends JFrame {
 
         try {
             BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("emplist.txt")));
-            String str = null;
+            String str;
             int i = empList.size();
             while((str = r.readLine()) != null){
                 StringTokenizer t = new StringTokenizer(str,":");
@@ -59,7 +57,7 @@ public class EmpTable extends JFrame {
                 i++;
             }
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
 

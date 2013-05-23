@@ -35,8 +35,6 @@ public class LeaveListView extends JPanel {
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DatePickerCellEditor(new DatePicker()));
-        table.setDefaultEditor(Emp.class, new EmpColumnEditor(frm,dbsrv));
-
 
         add(new JScrollPane(table),BorderLayout.CENTER);
 

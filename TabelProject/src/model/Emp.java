@@ -77,7 +77,7 @@ public class Emp {
     }
 
     public String toString(){
-        return "("+id+")"+lastName+" "+firstName+" "+middleName;
+        return lastName+" "+firstName+" "+middleName;
     }
 
 

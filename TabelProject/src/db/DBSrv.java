@@ -4,11 +4,13 @@ import model.Emp;
 import model.Ill;
 import model.Leave;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.sql.Date;
+import java.util.*;
 
 /**
  *
@@ -100,6 +102,29 @@ public class DBSrv {
             e.printStackTrace();
         }
 
+
+        return emps;
+    }
+
+    public ArrayList<Emp> getEmpsFromTxt() {
+
+        ArrayList<Emp> emps = new ArrayList<Emp>(100);
+
+        try {
+            BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("emplist.txt")));
+            String str;
+            int i = emps.size();
+            while((str = r.readLine()) != null){
+                StringTokenizer t = new StringTokenizer(str,":");
+
+                while (t.hasMoreTokens()){
+                    emps.add(new Emp(i, t.nextToken(), t.nextToken(),t.nextToken(),new java.util.Date(),new java.util.Date()));
+                }
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return emps;
     }

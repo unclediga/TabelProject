@@ -1,3 +1,6 @@
+import db.DBSrv;
+import view.editor.EmpColumnEditor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -9,27 +12,27 @@ import java.util.StringTokenizer;
 
 public class EmpTable extends JFrame {
 
-    // список работников
+    // СЃРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ
     private ArrayList<EmpDev> empList;
 
-    // название столбцов
+    // РЅР°Р·РІР°РЅРёРµ СЃС‚РѕР»Р±С†РѕРІ
     private String[] columns = {
-            "Имя", "Любимый Цвет","Работник"};
-    // данные для таблицы
+            "РРјСЏ", "Р›СЋР±РёРјС‹Р№ Р¦РІРµС‚","Р Р°Р±РѕС‚РЅРёРє"};
+    // РґР°РЅРЅС‹Рµ РґР»СЏ С‚Р°Р±Р»РёС†С‹
     private Object[][] data = {
-            {"Иван", "Зеленый",
-                    new EmpDev(1, "Иванов", "Иван", "Иванович")},
-            {"Александр", "Красный",
-                    new EmpDev(2, "Петров", "Петр", "Петрович")},
-            {"Петр", "Синий",new EmpDev(3, "Сидоров", "Сидор", "Сидорович") }
+            {"РРІР°РЅ", "Р—РµР»РµРЅС‹Р№",
+                    new EmpDev(1, "РРІР°РЅРѕРІ", "РРІР°РЅ", "РРІР°РЅРѕРІРёС‡")},
+            {"РђР»РµРєСЃР°РЅРґСЂ", "РљСЂР°СЃРЅС‹Р№",
+                    new EmpDev(2, "РџРµС‚СЂРѕРІ", "РџРµС‚СЂ", "РџРµС‚СЂРѕРІРёС‡")},
+            {"РџРµС‚СЂ", "РЎРёРЅРёР№",new EmpDev(3, "РЎРёРґРѕСЂРѕРІ", "РЎРёРґРѕСЂ", "РЎРёРґРѕСЂРѕРІРёС‡") }
 
     };
 
     KeyListener editorKeyListener;
-    //        al.add(new Emp(1, "Иванов", "Иван", "Иванович", new GregorianCalendar(2000, 01, 20).getTime(), null));
-//        al.add(new Emp(2, "Петров", "Петр", "Петрович", new GregorianCalendar(2002, 02, 20).getTime(), null));
-//        al.add(new Emp(3, "Сидоров", "Сидор", "Сидорович", new GregorianCalendar(2004, 03, 20).getTime(), null));
-//        al.add(new Emp(4, "Васильев", "Василий", "Васильевич", new GregorianCalendar(2008, 10, 20).getTime(), null));
+    //        al.add(new Emp(1, "РРІР°РЅРѕРІ", "РРІР°РЅ", "РРІР°РЅРѕРІРёС‡", new GregorianCalendar(2000, 01, 20).getTime(), null));
+//        al.add(new Emp(2, "РџРµС‚СЂРѕРІ", "РџРµС‚СЂ", "РџРµС‚СЂРѕРІРёС‡", new GregorianCalendar(2002, 02, 20).getTime(), null));
+//        al.add(new Emp(3, "РЎРёРґРѕСЂРѕРІ", "РЎРёРґРѕСЂ", "РЎРёРґРѕСЂРѕРІРёС‡", new GregorianCalendar(2004, 03, 20).getTime(), null));
+//        al.add(new Emp(4, "Р’Р°СЃРёР»СЊРµРІ", "Р’Р°СЃРёР»РёР№", "Р’Р°СЃРёР»СЊРµРІРёС‡", new GregorianCalendar(2008, 10, 20).getTime(), null));
 
     public EmpTable() {
         super("TableDefaultEditing");
@@ -37,12 +40,12 @@ public class EmpTable extends JFrame {
         JTable table = new JTable(data, columns);
 
 
-        // работнички
+        // СЂР°Р±РѕС‚РЅРёС‡РєРё
         empList = new ArrayList<EmpDev>(100);
-        empList.add(new EmpDev(1, "Иванов", "Иван", "Иванович")); //, new GregorianCalendar(2000, 01, 20).getTime(), null));
-        empList.add(new EmpDev(2, "Петров", "Петр", "Петрович")); //, new GregorianCalendar(2002, 02, 20).getTime(), null));
-        empList.add(new EmpDev(3, "Сидоров", "Сидор", "Сидорович"));//, new GregorianCalendar(2004, 03, 20).getTime(), null));
-        empList.add(new EmpDev(4, "Васильев", "Василий", "Васильевич"));//, new GregorianCalendar(2008, 10, 20).getTime(), null));
+        empList.add(new EmpDev(1, "РРІР°РЅРѕРІ", "РРІР°РЅ", "РРІР°РЅРѕРІРёС‡")); //, new GregorianCalendar(2000, 01, 20).getTime(), null));
+        empList.add(new EmpDev(2, "РџРµС‚СЂРѕРІ", "РџРµС‚СЂ", "РџРµС‚СЂРѕРІРёС‡")); //, new GregorianCalendar(2002, 02, 20).getTime(), null));
+        empList.add(new EmpDev(3, "РЎРёРґРѕСЂРѕРІ", "РЎРёРґРѕСЂ", "РЎРёРґРѕСЂРѕРІРёС‡"));//, new GregorianCalendar(2004, 03, 20).getTime(), null));
+        empList.add(new EmpDev(4, "Р’Р°СЃРёР»СЊРµРІ", "Р’Р°СЃРёР»РёР№", "Р’Р°СЃРёР»СЊРµРІРёС‡"));//, new GregorianCalendar(2008, 10, 20).getTime(), null));
 
         try {
             BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("emplist.txt")));
@@ -64,13 +67,16 @@ public class EmpTable extends JFrame {
 
 
         // EDITOR
-        JComboBox combo = new JComboBox(new String[] {"Зеленый","Красный","Синий"});
+        JComboBox combo = new JComboBox(new String[] {"Р—РµР»РµРЅС‹Р№","РљСЂР°СЃРЅС‹Р№","РЎРёРЅРёР№"});
         final DefaultCellEditor editor = new DefaultCellEditor(combo);
         table.getColumnModel().getColumn(1).setCellEditor(editor);
         final JComboBox comboEmp = new JComboBox(empList.toArray());
         comboEmp.setFont(comboEmp.getFont().deriveFont(Font.PLAIN));
         final DefaultCellEditor empEditor = new DefaultCellEditor(comboEmp);
-        table.getColumnModel().getColumn(2).setCellEditor(empEditor);
+        // Р§С‚РѕР± РЅРµ СЃСЂР°Р·Сѓ РѕС‚РєСЂСѓРІР°Р»Р°СЃСЊ, Р° РѕРїРѕСЃР»СЏ РґРІСѓС… С‰РµР»С‡РєРѕРІ
+        empEditor.setClickCountToStart(2);
+        //table.getColumnModel().getColumn(2).setCellEditor(empEditor);
+        table.getColumnModel().getColumn(2).setCellEditor(new EmpColumnEditor(new DBSrv()));
 
         table.setRowHeight(table.getRowHeight() + 5);
 

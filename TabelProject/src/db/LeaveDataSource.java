@@ -53,20 +53,13 @@ public class LeaveDataSource implements ModelDataSource {
         for(Map.Entry e : empMap.entrySet()){
             String status = (String) e.getValue();
             if(status.equals("I")){
-                db.insertLeave((Leave) e.getKey());
+                db.save(e.getKey());
             }else if(status.equals("U")){
-                db.updateLeave((Leave) e.getKey());
+                db.save(e.getKey());
             }else if(status.equals("D")){
-                db.deleteLeave((Leave) e.getKey());
+                db.save(e.getKey());
             }
         }
-    }
-
-    @Override
-    public int getNextId() {
-        int id;
-        id = db.getNextLeaveId();
-        return id;
     }
 
 }

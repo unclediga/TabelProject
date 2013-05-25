@@ -14,7 +14,7 @@ public class Emp {
     private Date hireDate;
     private Date fireDate;
 
-    public Emp(int id, String lastName, String firstName, String middleName, Date hireDate, Date fireDate) {
+    public Emp(Integer id, String lastName, String firstName, String middleName, Date hireDate, Date fireDate) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -67,12 +67,12 @@ public class Emp {
         this.fireDate = fireDate;
     }
 
-    public int getId() {
+    public Integer getId() {
 
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

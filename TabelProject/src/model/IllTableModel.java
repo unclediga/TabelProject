@@ -27,6 +27,7 @@ public class IllTableModel extends ListTableModel {
         Ill ill = new Ill(
                 new Integer(id),
                 null,
+                Ill.getDefaultType(),
                 new Date(),
                 new Date()
         );
@@ -63,9 +64,12 @@ public class IllTableModel extends ListTableModel {
                 ill.setEmp((Emp) val);
                 break;
             case 2:
-                ill.setDateFrom((Date) val);
+                ill.setTill_id((String) val);
                 break;
             case 3:
+                ill.setDateFrom((Date) val);
+                break;
+            case 4:
                 ill.setDateTo((Date) val);
                 break;
             default:
@@ -93,8 +97,10 @@ public class IllTableModel extends ListTableModel {
             case 1:
                 return ill.getEmp();
             case 2:
-                return ill.getDateFrom();
+                return ill.getTill_id();
             case 3:
+                return ill.getDateFrom();
+            case 4:
                 return ill.getDateTo();
             default:
                 System.err.println("IllTableModel:columnIndex is out of range");

@@ -27,6 +27,7 @@ public class LeaveTableModel extends ListTableModel {
         Leave leave = new Leave(
                 new Integer(id),
                 null,
+                Leave.getDefaultType(),
                 new Date(),
                 new Date()
         );
@@ -63,9 +64,12 @@ public class LeaveTableModel extends ListTableModel {
                 leave.setEmp((Emp) val);
                 break;
             case 2:
-                leave.setDateFrom((Date) val);
+                leave.setTleave_id((String) val);
                 break;
             case 3:
+                leave.setDateFrom((Date) val);
+                break;
+            case 4:
                 leave.setDateTo((Date) val);
                 break;
             default:
@@ -93,8 +97,10 @@ public class LeaveTableModel extends ListTableModel {
             case 1:
                 return leave.getEmp();
             case 2:
-                return leave.getDateFrom();
+                return leave.getTleave_id();
             case 3:
+                return leave.getDateFrom();
+            case 4:
                 return leave.getDateTo();
             default:
                 System.err.println("LeaveTableModel:columnIndex is out of range");

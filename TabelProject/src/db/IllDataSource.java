@@ -36,7 +36,7 @@ public class IllDataSource implements ModelDataSource {
     @Override
     public String[] getColumnNames() {
         return         new String[]{
-                "ID", "EMP", "ДатаНачала", "ДатаОкончания"
+                "ID", "EMP", "TILL_ID", "ДатаНачала", "ДатаОкончания"
         };
 
     }
@@ -45,7 +45,7 @@ public class IllDataSource implements ModelDataSource {
     public Class[] getColumnClasses() {
         return
                 new Class[]{
-                        Integer.class, Emp.class, Date.class, Date.class};
+                        Integer.class, Emp.class, String.class, Date.class, Date.class};
     }
 
     @Override

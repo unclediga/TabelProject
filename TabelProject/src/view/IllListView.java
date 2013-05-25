@@ -1,9 +1,12 @@
 package view;
 
 import db.DBSrv;
+import model.Emp;
+import model.Ill;
 import model.IllTableModel;
 import model.ListTableModel;
 import view.editor.DateColumnEditor;
+import view.editor.EmpColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +35,11 @@ public class IllListView extends JPanel {
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
+        table.setDefaultEditor(Emp.class, new EmpColumnEditor(dbsrv));
+        table.getColumnModel().getColumn(2).setCellEditor(
+                new DefaultCellEditor(
+                        new JComboBox(Ill.getTypes())));
+        table.setRowHeight(table.getRowHeight() + 5);
         add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ

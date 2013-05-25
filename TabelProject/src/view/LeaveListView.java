@@ -1,9 +1,12 @@
 package view;
 
 import db.DBSrv;
+import model.Emp;
+import model.Leave;
 import model.LeaveTableModel;
 import model.ListTableModel;
 import view.editor.DateColumnEditor;
+import view.editor.EmpColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +35,12 @@ public class LeaveListView extends JPanel {
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
-        add(new JScrollPane(table),BorderLayout.CENTER);
+        table.setDefaultEditor(Emp.class, new EmpColumnEditor(dbsrv));
+        table.getColumnModel().getColumn(2).setCellEditor(
+                new DefaultCellEditor(
+                        new JComboBox(Leave.getTypes())));
+        table.setRowHeight(table.getRowHeight() + 5);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
         // КНОПКИ
 

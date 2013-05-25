@@ -35,7 +35,7 @@ public class LeaveDataSource implements ModelDataSource {
     @Override
     public String[] getColumnNames() {
         return         new String[]{
-                "ID", "EMP", "ДатаНачала", "ДатаОкончания"
+                "ID", "EMP", "TLEAVE_ID","ДатаНачала", "ДатаОкончания"
         };
 
     }
@@ -44,7 +44,7 @@ public class LeaveDataSource implements ModelDataSource {
     public Class[] getColumnClasses() {
         return
                 new Class[]{
-                        Integer.class, Emp.class, Date.class, Date.class};
+                        Integer.class, Emp.class, String.class, Date.class, Date.class};
     }
 
     @Override

@@ -143,10 +143,6 @@ public class EmpTable extends JFrame {
         comboEmp.addKeyListener(editorKeyListener);
     }
 
-
-
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

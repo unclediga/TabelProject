@@ -13,7 +13,7 @@ CREATE TABLE DDT_EMP(
 
 
 /*
-          Œ “ œ ” —   ¿
+          –û –¢ –ü –£ –° –ö –ê
 
  */
 
@@ -28,7 +28,7 @@ CREATE TABLE DDT_LEAVE(
 ALTER TABLE DDT_LEAVE ADD CONSTRAINT DDT_LEAVE_EMP_FK FOREIGN KEY(EMP_ID) REFERENCES DDT_EMP(ID);
 
 /*
-   ¡ Œ À ‹ Õ » ◊ Õ € ≈ I L L
+   –ë –û –õ –¨ –ù –ò –ß –ù –´ –ï I L L
   */
 CREATE TABLE DDT_ILL(
   ID INTEGER PRIMARY KEY ,

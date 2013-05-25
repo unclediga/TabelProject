@@ -22,10 +22,8 @@ public class IllTableModel extends ListTableModel {
     @Override
     public Object createNewObject() {
 
-        int id = ds.getNextId();
-
         Ill ill = new Ill(
-                new Integer(id),
+                null,
                 null,
                 Ill.getDefaultType(),
                 new Date(),

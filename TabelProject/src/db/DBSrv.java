@@ -115,14 +115,14 @@ public class DBSrv {
             BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("emplist.txt")));
             String str;
             int i = emps.size();
-            while((str = r.readLine()) != null){
-                StringTokenizer t = new StringTokenizer(str,":");
+            while ((str = r.readLine()) != null) {
+                StringTokenizer t = new StringTokenizer(str, ":");
 
-                while (t.hasMoreTokens()){
+                while (t.hasMoreTokens()) {
 
-                    Calendar c = new GregorianCalendar(2000,1,1);
-                    c.set(2000+rnd.nextInt(13),1 + rnd.nextInt(12),1+rnd.nextInt(29));
-                    emps.add(new Emp(i, t.nextToken(), t.nextToken(),t.nextToken(),c.getTime(),new java.util.Date()));
+                    Calendar c = new GregorianCalendar(2000, 1, 1);
+                    c.set(2000 + rnd.nextInt(13), 1 + rnd.nextInt(12), 1 + rnd.nextInt(29));
+                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(), c.getTime(), new java.util.Date()));
                 }
                 i++;
             }
@@ -132,7 +132,8 @@ public class DBSrv {
 
         return emps;
     }
-    public Emp getEmpById(Integer id){
+
+    public Emp getEmpById(Integer id) {
         if (conn == null) {
             System.err.println("No connect!!");
             return null;
@@ -145,10 +146,10 @@ public class DBSrv {
                     "SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP" +
                             " WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1,id.intValue());
+            st.setInt(1, id.intValue());
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                emp =  new Emp();
+                emp = new Emp();
                 emp.setId(rs.getInt("id"));
                 emp.setLastName(rs.getString("lname"));
                 emp.setFirstName(rs.getString("fname"));
@@ -165,78 +166,153 @@ public class DBSrv {
         return emp;
 
     }
-    public void insertEmp(Emp emp) {
+
+    public void save(Object obj) {
+
+        final String sql;
+
         if (conn == null) {
             System.err.println("No connect!!");
         }
 
-        emp.setId(getNextEmpId());
+        if (obj == null) {
+            System.err.println("null object for save() ");
+        }
 
-        final String sql =
-                "INSERT INTO DDT_EMP(id,lname,fname,mname,d_hire,d_fire) VALUES(?,?,?,?,?,?)";
-        try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, emp.getId());
-            st.setString(2, emp.getLastName());
-            st.setString(3, emp.getFirstName());
-            st.setString(4, emp.getMiddleName());
-            st.setDate(5, UtilToSQL(emp.getHireDate()));
-            st.setDate(6, UtilToSQL(emp.getFireDate()));
-            st.executeUpdate();
-            conn.commit();
-            st.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (obj instanceof Emp) {
+
+            Emp emp = (Emp) obj;
+            if (emp.getId() == null){
+
+                emp.setId(getNextId());
+                sql = "INSERT INTO DDT_EMP(lname,fname,mname,d_hire,d_fire,id) " +
+                        "VALUES(?,?,?,?,?,?)";
+            }else{
+                sql =
+                        "UPDATE DDT_EMP SET " +
+                                " lname = ?, " +
+                                " fname = ?, " +
+                                " mname = ?, " +
+                                " d_hire = ?, " +
+                                " d_fire = ? " +
+                                " WHERE id = ?";
+            }
+            try {
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setString(1, emp.getLastName());
+                st.setString(2, emp.getFirstName());
+                st.setString(3, emp.getMiddleName());
+                st.setDate(4, UtilToSQL(emp.getHireDate()));
+                st.setDate(5, UtilToSQL(emp.getFireDate()));
+                st.setInt(6, emp.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } else if (obj instanceof Leave) {
+
+            Leave leave = (Leave) obj;
+
+            if (leave.getId() == null){
+
+                leave.setId(getNextId());
+                sql = "INSERT INTO DDT_LEAVE(EMP_ID, TLEAVE_ID, D_FROM, D_TO ,ID) " +
+                        "VALUES(?,?,?,?,?)";
+            }else{
+                sql =
+                        "UPDATE DDT_LEAVE SET " +
+                                " emp_id = ?, " +
+                                " tleave_id = ?, " +
+                                " d_from = ?, " +
+                                " d_to = ?  " +
+                                " WHERE id = ?";
+            }
+            try {
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setInt(1, leave.getEmp().getId());
+                st.setString(2, leave.getTleave_id());
+                st.setDate(3, UtilToSQL(leave.getDateFrom()));
+                st.setDate(4, UtilToSQL(leave.getDateTo()));
+                st.setInt(5, leave.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } else if (obj instanceof Ill) {
+
+            Ill ill = (Ill) obj;
+
+            if (ill.getId() == null){
+
+                ill.setId(getNextId());
+                sql = "INSERT INTO DDT_ILL(EMP_ID, TILL_ID, D_FROM, D_TO ,ID) " +
+                        "VALUES(?,?,?,?,?)";
+            }else{
+                sql =
+                        "UPDATE DDT_ILL SET " +
+                                " emp_id = ?, " +
+                                " till_id = ?, " +
+                                " d_from = ?, " +
+                                " d_to = ?  " +
+                                " WHERE id = ?";
+            }
+            try {
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setInt(1, ill.getEmp().getId());
+                st.setString(2, ill.getTill_id());
+                st.setDate(3, UtilToSQL(ill.getDateFrom()));
+                st.setDate(4, UtilToSQL(ill.getDateTo()));
+                st.setInt(5, ill.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                conn.commit();
+            } catch (SQLException e) {
+                System.out.println("Ошибка при фиксации изменений!");
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    public void updateEmp(Emp emp) {
+
+    public void delete(Object obj){
+
+        final int id;
+        final String sql;
+
         if (conn == null) {
             System.err.println("No connect!!");
         }
-        final String sql =
-                "UPDATE DDT_EMP SET " +
-                        " lname = ?, " +
-                        " fname = ?, " +
-                        " mname = ?, " +
-                        " d_hire = ?, " +
-                        " d_fire = ? " +
-                        " WHERE id = ?";
+
+        if(obj instanceof Emp){
+            id = ((Emp) obj).getId();
+            sql = "DELETE FROM DDT_EMP WHERE id = ?";
+        }else if(obj instanceof Leave) {
+            id = ((Leave) obj).getId();
+            sql = "DELETE FROM DDT_LEAVE WHERE id = ?";
+        }else if(obj instanceof Ill){
+            id = ((Ill) obj).getId();
+            sql = "DELETE FROM DDT_ILL WHERE id = ?";
+        }else
+            return;
+
         try {
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, emp.getLastName());
-            st.setString(2, emp.getFirstName());
-            st.setString(3, emp.getMiddleName());
-            st.setDate(4, UtilToSQL(emp.getHireDate()));
-            st.setDate(5, UtilToSQL(emp.getFireDate()));
-            st.setInt(6, emp.getId());
+            st.setInt(1, id);
             st.executeUpdate();
-            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void deleteEmp(Emp emp) {
-        if (conn == null) {
-            System.err.println("No connect!!");
-        }
-        try {
-            final String sql =
-                    "DELETE FROM DDT_EMP " +
-                            "WHERE id = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, emp.getId());
-            st.executeUpdate();
-            conn.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    public int getNextEmpId() {
+    public int getNextId() {
         int id = 0;
         if (conn == null) {
             System.err.println("No connect!!");
@@ -265,10 +341,11 @@ public class DBSrv {
 
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id,emp_id,d_from,d_to FROM DDT_LEAVE");
+            ResultSet rs = st.executeQuery("SELECT id,emp_id,tleave_id,d_from,d_to FROM DDT_LEAVE");
             while (rs.next()) {
                 Leave leave = new Leave();
                 leave.setId(rs.getInt("id"));
+                leave.setTleave_id(rs.getString("tleave_id"));
                 leave.setDateFrom(rs.getDate("d_from"));
                 leave.setDateTo(rs.getDate("d_to"));
 
@@ -316,34 +393,8 @@ public class DBSrv {
         }
         return leave;
     }
-    public void insertLeave(Leave key) {
-    }
 
-    public void updateLeave(Leave key) {
-    }
 
-    public void deleteLeave(Leave key) {
-
-    }
-
-    public int getNextLeaveId() {
-        int id = 0;
-        if (conn == null) {
-            System.err.println("No connect!!");
-            return 0;
-        }
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT ISNULL(MAX(id),0) FROM DDT_LEAVE");
-            while (rs.next()) {
-                id = rs.getInt(1) + 1;
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
     public ArrayList<Ill> getIlls() {
         ArrayList<Ill> ills = new ArrayList<Ill>(100);
 
@@ -354,10 +405,11 @@ public class DBSrv {
 
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id,emp_id,d_from,d_to FROM DDT_ILL");
+            ResultSet rs = st.executeQuery("SELECT id,emp_id,till_id, d_from,d_to FROM DDT_ILL");
             while (rs.next()) {
                 Ill ill = new Ill();
                 ill.setId(rs.getInt("id"));
+                ill.setTill_id(rs.getString("till_id"));
                 ill.setDateFrom(rs.getDate("d_from"));
                 ill.setDateTo(rs.getDate("d_to"));
 
@@ -405,52 +457,25 @@ public class DBSrv {
         }
         return ill;
     }
-    public void insertIll(Ill key) {
-    }
 
-    public void updateIll(Ill key) {
-    }
 
-    public void deleteIll(Ill key) {
-
-    }
-
-    public int getNextIllId() {
-        int id = 0;
-        if (conn == null) {
-            System.err.println("No connect!!");
-            return 0;
-        }
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT ISNULL(MAX(id),0) FROM DDT_ILL");
-            while (rs.next()) {
-                id = rs.getInt(1) + 1;
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
-    /**
+        /**
      * Оработать emplist.txt и вставить из
      * него работников в таблицу DDT_EMP
      * Таблицу очищаем перед этим
-      */
-    public void srvInsertEmpList(){
+     */
+    public void srvInsertEmpList() {
         if (conn == null) {
             System.err.println("No connect!!");
             return;
         }
         ArrayList<Emp> emps = getEmpsFromTxt();
-        if(emps.size() == 0){
+        if (emps.size() == 0) {
             System.err.println("No employers for INSERT!!");
             return;
         }
 
-        System.out.println("we will insert "+emps.size()+" employers");
+        System.out.println("we will insert " + emps.size() + " employers");
 
 
         ;
@@ -466,8 +491,8 @@ public class DBSrv {
         }
 
         for (Emp emp : emps) {
-            System.out.println("Prepare for inserting "+emp);
-            insertEmp(emp);
+            System.out.println("Prepare for inserting " + emp);
+            save(emp);
         }
     }
 }

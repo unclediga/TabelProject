@@ -22,10 +22,8 @@ public class LeaveTableModel extends ListTableModel {
     @Override
     public Object createNewObject() {
 
-        int id = ds.getNextId();
-
         Leave leave = new Leave(
-                new Integer(id),
+                null,
                 null,
                 Leave.getDefaultType(),
                 new Date(),

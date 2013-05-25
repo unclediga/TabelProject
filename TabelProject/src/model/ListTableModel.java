@@ -58,19 +58,11 @@ public abstract class ListTableModel extends AbstractTableModel {
         ds.saveChanges(changedObjMap);
     }
 
-    public void addRow(Object[] objects) {
+    public void addRow() {
 
-        Object newObj = null;
-
-
-        newObj = createNewObject();
-
-
+        Object newObj = createNewObject();
         data.add(newObj);
-
-
         changedObjMap.put(newObj, "I");
-
         fireTableRowsInserted(data.size(), data.size());
     }
 

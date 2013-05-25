@@ -74,7 +74,7 @@ public class IllListView extends JPanel {
         btnNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.addRow(new Object[]{null,null,null,null,new Date()});
+                model.addRow();
             }
         });
         btnDel.addActionListener(new ActionListener() {

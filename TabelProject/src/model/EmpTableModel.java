@@ -24,10 +24,8 @@ public class EmpTableModel extends ListTableModel {
     @Override
     public Object createNewObject() {
 
-        int id = ds.getNextId();
-
         Emp emp = new Emp(
-                new Integer(id),
+                null,
                 "Некто",
                 "Некто",
                 "Некто",

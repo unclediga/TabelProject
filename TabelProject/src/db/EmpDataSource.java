@@ -30,7 +30,7 @@ public class EmpDataSource implements ModelDataSource {
 
 
     @Override
-    public ArrayList<Emp> getData(boolean refresh) {
+    public ArrayList getData(boolean refresh) {
         if(refresh){
             al = db.getEmps();
         }
@@ -58,21 +58,13 @@ public class EmpDataSource implements ModelDataSource {
         for(Map.Entry e : empMap.entrySet()){
             String status = (String) e.getValue();
             if(status.equals("I")){
-                db.insertEmp((Emp) e.getKey());
+                db.save(e.getKey());
             }else if(status.equals("U")){
-                db.updateEmp((Emp) e.getKey());
+                db.save(e.getKey());
             }else if(status.equals("D")){
-                db.deleteEmp((Emp) e.getKey());
+                db.save(e.getKey());
             }
         }
     }
-
-    @Override
-    public int getNextId() {
-        int id;
-        id = db.getNextEmpId();
-        return id;
-    }
-
 }
 

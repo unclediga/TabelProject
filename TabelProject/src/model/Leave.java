@@ -12,7 +12,7 @@ public class Leave {
     private String tleave_id;
     private Date dateFrom;
     private Date dateTo;
-    private static String[] types  = new String[] { "БЛН" , "РЕБ" };
+    private static String[] types  = new String[] { "ОТП" , "АДМ" };
 
     public Emp getEmp() {
         return emp;

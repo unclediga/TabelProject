@@ -2,21 +2,13 @@ package view.editor;
 
 import db.DBSrv;
 import model.Emp;
-import view.EmpListView;
-import view.FormWindow;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.EventObject;
-import java.util.StringTokenizer;
 
 /**
  *

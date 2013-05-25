@@ -1,9 +1,7 @@
 package view.editor;
 
-import net.sourceforge.jdatepicker.JDatePicker;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
-import net.sourceforge.jdatepicker.impl.UtilCalendarModel;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;

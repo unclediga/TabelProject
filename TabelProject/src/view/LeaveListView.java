@@ -1,12 +1,9 @@
 package view;
 
-import com.michaelbaranov.microba.calendar.DatePicker;
-import com.michaelbaranov.microba.calendar.DatePickerCellEditor;
 import db.DBSrv;
-import model.Emp;
 import model.LeaveTableModel;
 import model.ListTableModel;
-import view.editor.EmpColumnEditor;
+import view.editor.DateColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,8 +31,7 @@ public class LeaveListView extends JPanel {
 
 
         table = new JTable(model);
-        table.setDefaultEditor(Date.class, new DatePickerCellEditor(new DatePicker()));
-
+        table.setDefaultEditor(Date.class, new DateColumnEditor());
         add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ

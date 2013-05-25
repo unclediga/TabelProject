@@ -10,7 +10,7 @@ public class Test {
     public static void main(String[] args) {
         Properties prop = new Properties();
         try {
-            prop.load(new FileInputStream("tabel.property"));
+            prop.load(new FileInputStream("tabel.properties"));
         } catch (IOException e) {
             System.err.print("Can't read property file");
             return;

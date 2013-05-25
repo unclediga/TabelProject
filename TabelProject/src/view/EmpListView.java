@@ -2,13 +2,14 @@ package view;
 
 import db.DBSrv;
 import model.EmpTableModel;
+import view.editor.DateColumnEditor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import com.toedter.calendar.JDateChooserCellEditor;
 
 public class EmpListView extends JPanel{
     private GregorianCalendar calendar = new GregorianCalendar();
@@ -26,9 +27,7 @@ public class EmpListView extends JPanel{
 
 
         table = new JTable(model);
-        table.setDefaultEditor(Date.class, new JDateChooserCellEditor());
-
-
+        table.setDefaultEditor(Date.class, new DateColumnEditor());
         add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ

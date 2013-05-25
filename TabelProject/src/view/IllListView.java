@@ -1,9 +1,9 @@
 package view;
 
-import com.toedter.calendar.JDateChooserCellEditor;
 import db.DBSrv;
 import model.IllTableModel;
 import model.ListTableModel;
+import view.editor.DateColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +31,7 @@ public class IllListView extends JPanel {
 
 
         table = new JTable(model);
-        table.setDefaultEditor(Date.class, new JDateChooserCellEditor());
-
-
+        table.setDefaultEditor(Date.class, new DateColumnEditor());
         add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ

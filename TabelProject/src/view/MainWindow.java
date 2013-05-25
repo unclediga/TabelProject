@@ -81,6 +81,22 @@ public class MainWindow extends JFrame {
         });
         fileMenu.add(exitItem);
 
+        JMenu srvMenu = new JMenu("Сервис");
+        menuBar.add(srvMenu);
+        JMenuItem srvInsEmpItem = new JMenuItem("Заполнить работников");
+        srvInsEmpItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        dbsrv.srvInsertEmpList();
+                    }
+                });
+            }
+        });
+        srvMenu.add(srvInsEmpItem);
+
         JMenuItem empListViewItem = new JMenuItem("Работники");
 //        empListViewItem.setPreferredSize(new Dimension(-1,20));
 

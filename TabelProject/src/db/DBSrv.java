@@ -4,11 +4,13 @@ import model.Emp;
 import model.Ill;
 import model.Leave;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.sql.Date;
+import java.util.*;
 
 /**
  *
@@ -103,6 +105,33 @@ public class DBSrv {
 
         return emps;
     }
+
+    public ArrayList<Emp> getEmpsFromTxt() {
+
+        ArrayList<Emp> emps = new ArrayList<Emp>(100);
+        Random rnd = new Random();
+
+        try {
+            BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("emplist.txt")));
+            String str;
+            int i = emps.size();
+            while((str = r.readLine()) != null){
+                StringTokenizer t = new StringTokenizer(str,":");
+
+                while (t.hasMoreTokens()){
+
+                    Calendar c = new GregorianCalendar(2000,1,1);
+                    c.set(2000+rnd.nextInt(13),1 + rnd.nextInt(12),1+rnd.nextInt(29));
+                    emps.add(new Emp(i, t.nextToken(), t.nextToken(),t.nextToken(),c.getTime(),new java.util.Date()));
+                }
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return emps;
+    }
     public Emp getEmpById(Integer id){
         if (conn == null) {
             System.err.println("No connect!!");
@@ -140,6 +169,9 @@ public class DBSrv {
         if (conn == null) {
             System.err.println("No connect!!");
         }
+
+        emp.setId(getNextEmpId());
+
         final String sql =
                 "INSERT INTO DDT_EMP(id,lname,fname,mname,d_hire,d_fire) VALUES(?,?,?,?,?,?)";
         try {
@@ -212,9 +244,9 @@ public class DBSrv {
         }
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT ISNULL(MAX(id),0) FROM DDT_EMP");
+            ResultSet rs = st.executeQuery("SELECT DDT_ID_SEQ.NEXTVAL");
             while (rs.next()) {
-                id = rs.getInt(1) + 1;
+                id = rs.getInt(1);
             }
             rs.close();
         } catch (SQLException e) {
@@ -400,5 +432,40 @@ public class DBSrv {
             e.printStackTrace();
         }
         return id;
+    }
+
+    /**
+     * Оработать emplist.txt и вставить из
+     * него работников в таблицу DDT_EMP
+     * Таблицу очищаем перед этим
+      */
+    public void srvInsertEmpList(){
+        if (conn == null) {
+            System.err.println("No connect!!");
+            return;
+        }
+        ArrayList<Emp> emps = getEmpsFromTxt();
+        if(emps.size() == 0){
+            System.err.println("No employers for INSERT!!");
+            return;
+        }
+
+        System.out.println("we will insert "+emps.size()+" employers");
+
+
+        ;
+        try {
+            Statement st = conn.createStatement();
+            st.executeUpdate("DELETE FROM DDT_EMP");
+            st.close();
+            System.out.println("DELETE all employers");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (Emp emp : emps) {
+            System.out.println("Prepare for inserting "+emp);
+            insertEmp(emp);
+        }
     }
 }

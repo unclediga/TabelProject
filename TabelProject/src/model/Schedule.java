@@ -50,4 +50,11 @@ public class Schedule {
         days[dayOfWeek] = hours;
     }
 
+    public int getSumHours() {
+        int sum = 0;
+        for (int i = 1; i < 8; i++) {
+            sum += days[i];
+        }
+        return sum;
+    }
 }

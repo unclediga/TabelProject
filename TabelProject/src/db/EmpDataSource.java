@@ -62,7 +62,7 @@ public class EmpDataSource implements ModelDataSource {
             }else if(status.equals("U")){
                 db.save(e.getKey());
             }else if(status.equals("D")){
-                db.save(e.getKey());
+                db.delete(e.getKey());
             }
         }
     }

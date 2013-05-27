@@ -36,7 +36,7 @@ public class ScheduleDataSource implements ModelDataSource {
     @Override
     public String[] getColumnNames() {
         return         new String[]{
-                "ID", "EMP", "ДатаНачала", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск"
+                "ID", "EMP", "ДатаНачала", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск", "Всего"
         };
 
     }
@@ -48,6 +48,7 @@ public class ScheduleDataSource implements ModelDataSource {
                         Integer.class,
                         Emp.class,
                         Date.class,
+                        Integer.class,
                         Integer.class,
                         Integer.class,
                         Integer.class,
@@ -67,7 +68,7 @@ public class ScheduleDataSource implements ModelDataSource {
             }else if(status.equals("U")){
                 db.save(e.getKey());
             }else if(status.equals("D")){
-                db.save(e.getKey());
+                db.delete(e.getKey());
             }
         }
     }

@@ -19,12 +19,39 @@ public class ScheduleTableModel extends ListTableModel {
         this.columnNames = ds.getColumnNames();
     }
 
+    /**
+     * Поле <b>ВСЕГО</b> не должно быть редактируемым.
+     */
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(getColumnName(columnIndex).equals("Всего")){
+            return false;
+        }
+
+        return super.isCellEditable(rowIndex, columnIndex);
+    }
+
     @Override
     public Object createNewObject() {
 
         Schedule schedule = new Schedule();
         schedule.setDateFrom(new Date());
         return schedule;
+    }
+
+    /**
+     * Переопределяю из-за столбца <b>ВСЕГО</b>.<br>
+     * При изменении какой-либо ячейки с часами, должна измениться итоговая сумма.<br/>
+     * fireTableChanged() сработает, но сбрасывает текущую строку и её выделение.<br/>
+     * Приходится прицельно обновлять ячейку в строке.<br>
+     * Параметры взяты наследованием.
+     */
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        super.setValueAt(aValue, rowIndex, columnIndex);
+        if(columnIndex > 1 && columnIndex != 10){
+            fireTableCellUpdated(rowIndex,10);
+        }
     }
 
     @Override
@@ -102,6 +129,8 @@ public class ScheduleTableModel extends ListTableModel {
             case 8:
             case 9:
                 return schedule.getHours(columnIndex - 2);
+            case 10:
+                return schedule.getSumHours();
             default:
                 System.err.println("LeaveTableModel:columnIndex is out of range");
         }

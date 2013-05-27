@@ -345,6 +345,9 @@ public class DBSrv {
         }else if(obj instanceof Ill){
             id = ((Ill) obj).getId();
             sql = "DELETE FROM DDT_ILL WHERE id = ?";
+        }else if(obj instanceof Schedule){
+            id = ((Schedule) obj).getId();
+            sql = "DELETE FROM DDT_SCHEDULE WHERE id = ?";
         }else
             return;
 
@@ -573,7 +576,7 @@ public class DBSrv {
                 schedule.setEmp(emp);
                 for (int i = 1; i < 8; i++) {
                     schedule.setHours(i,rs.getInt("hours"+i));
-                }
+                };
                 schedules.add(schedule);
             }
             rs.close();

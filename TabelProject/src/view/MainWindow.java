@@ -18,16 +18,11 @@ public class MainWindow extends JFrame {
 
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 800;
-    private JDesktopPane desktop;
-    private FormWindow frmEmps = null;
-    private FormWindow frmLeaves = null;
-    private FormWindow frmIlls = null;
-    private FormWindow frmTbl = null;
+    private final JDesktopPane desktop;
     private DBSrv dbsrv = null;
-    private FormWindow frmSch;
 
 
-    public MainWindow() throws HeadlessException {
+    private MainWindow() throws HeadlessException {
 
 
         setTitle("Главное окно // ТАБЕЛЬ-УЧЁТ");
@@ -59,7 +54,7 @@ public class MainWindow extends JFrame {
                 //Чтобы окно было в стиле МЕТАЛ, иначе будет в Видовом L&F
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 JFrame frame = new MainWindow();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setVisible(true);
             }
         });
@@ -164,35 +159,35 @@ public class MainWindow extends JFrame {
     private void createForm(FORMS frm) {
         switch (frm) {
             case EMP:
-                frmEmps = new FormWindow("Работнички");
-                frmEmps.add(new EmpListView(frmEmps,dbsrv), BorderLayout.CENTER);
+                FormWindow frmEmps = new FormWindow("Работнички");
+                frmEmps.add(new EmpListView(frmEmps, dbsrv), BorderLayout.CENTER);
                 desktop.add(frmEmps);
                 frmEmps.pack();
                 frmEmps.setVisible(true);
                 break;
             case LEAVE:
-                frmLeaves = new FormWindow("Отпуска");
-                frmLeaves.add(new LeaveListView(frmLeaves,dbsrv), BorderLayout.CENTER);
+                FormWindow frmLeaves = new FormWindow("Отпуска");
+                frmLeaves.add(new LeaveListView(frmLeaves, dbsrv), BorderLayout.CENTER);
                 desktop.add(frmLeaves);
                 frmLeaves.pack();
                 frmLeaves.setVisible(true);
                 break;
             case ILL:
-                frmIlls = new FormWindow("Больничные");
-                frmIlls.add(new IllListView(frmIlls,dbsrv), BorderLayout.CENTER);
+                FormWindow frmIlls = new FormWindow("Больничные");
+                frmIlls.add(new IllListView(frmIlls, dbsrv), BorderLayout.CENTER);
                 desktop.add(frmIlls);
                 frmIlls.pack();
                 frmIlls.setVisible(true);
                 break;
             case TBL:
-                frmTbl = new FormWindow("Табель");
+                FormWindow frmTbl = new FormWindow("Табель");
                 frmTbl.add(new EmpListView(frmTbl, dbsrv), BorderLayout.CENTER);
                 desktop.add(frmTbl);
                 frmTbl.pack();
                 frmTbl.setVisible(true);
                 break;
             case SCH:
-                frmSch = new FormWindow("Расписание");
+                FormWindow frmSch = new FormWindow("Расписание");
                 frmSch.add(new ScheduleListView(frmSch, dbsrv), BorderLayout.CENTER);
                 desktop.add(frmSch);
                 frmSch.pack();

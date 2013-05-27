@@ -6,13 +6,6 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: BorodinovI
- * Date: 24.04.13
- * Time: 16:03
- * To change this template use File | Settings | File Templates.
- */
 public class DateCellEditor extends AbstractCellEditor implements TableCellEditor{
 
     private JSpinner editor;

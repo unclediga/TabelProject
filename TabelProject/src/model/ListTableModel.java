@@ -35,12 +35,6 @@ public abstract class ListTableModel extends AbstractTableModel {
         return getColumnValue(data.get(rowIndex),columnIndex);
     }
 
-    /**
-     *
-     * @param aValue
-     * @param rowIndex
-     * @param columnIndex
-     */
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         setColumnValue(data.get(rowIndex),columnIndex,aValue);

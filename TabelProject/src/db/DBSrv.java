@@ -270,12 +270,12 @@ public class DBSrv {
                 e.printStackTrace();
             }
 
-            try {
-                conn.commit();
-            } catch (SQLException e) {
-                System.out.println("Ошибка при фиксации изменений!");
-                System.out.println(e.getMessage());
-            }
+        }
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            System.out.println("Ошибка при фиксации изменений!");
+            System.out.println(e.getMessage());
         }
     }
 

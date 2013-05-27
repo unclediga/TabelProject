@@ -63,6 +63,8 @@ public class EmpListView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.addRow();
+                int addedRow = table.convertRowIndexToView(model.getRowCount()-1);
+                table.changeSelection(addedRow, 0, false, false);
             }
         });
         btnDel.addActionListener(new ActionListener() {

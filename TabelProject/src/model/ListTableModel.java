@@ -56,6 +56,7 @@ public abstract class ListTableModel extends AbstractTableModel {
 
     public void saveChanges() {
         ds.saveChanges(changedObjMap);
+        fireTableDataChanged();
     }
 
     public void addRow() {

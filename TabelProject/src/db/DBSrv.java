@@ -3,6 +3,7 @@ package db;
 import model.Emp;
 import model.Ill;
 import model.Leave;
+import model.Schedule;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -269,6 +270,52 @@ public class DBSrv {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        } else if (obj instanceof Schedule) {
+
+            Schedule schedule = (Schedule) obj;
+
+            if (schedule.getId() == null){
+
+                schedule.setId(getNextId());
+                sql = "INSERT INTO DDT_SCHEDULE(" +
+                      "  EMP_ID, " +
+                      "  D_FROM, " +
+                      "  hours1, "+
+                      "  hours2, "+
+                      "  hours3, "+
+                      "  hours4, "+
+                      "  hours5, "+
+                      "  hours6, "+
+                      "  hours7, "+
+                      "  ID" +
+                      ") " +
+                        "VALUES(?,?,?, ?,?,?, ?,?,?, ?)";
+            }else{
+                sql =
+                        "UPDATE DDT_SCHEDULE SET " +
+                                "  EMP_ID = ?, " +
+                                "  D_FROM = ?, " +
+                                "  hours1 = ?, "+
+                                "  hours2 = ?, "+
+                                "  hours3 = ?, "+
+                                "  hours4 = ?, "+
+                                "  hours5 = ?, "+
+                                "  hours6 = ?, "+
+                                "  hours7 = ?  "+
+                                " WHERE id = ?";
+            }
+            try {
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setInt(1, schedule.getEmp().getId());
+                st.setDate(2, UtilToSQL(schedule.getDateFrom()));
+                for (int i = 1; i < 8; i++) {
+                    st.setInt(i+2,schedule.getHours(i));
+                }
+                st.setInt(10, schedule.getId());
+                st.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         }
         try {
@@ -494,5 +541,47 @@ public class DBSrv {
             System.out.println("Prepare for inserting " + emp);
             save(emp);
         }
+    }
+
+    public ArrayList<Schedule> getSchedules() {
+
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>(100);
+
+        if (conn == null) {
+            System.err.println("No connect!!");
+            return schedules;
+        }
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(
+                    "SELECT " +
+                            "id,emp_id,d_from,week_day," +
+                            "hours1," +
+                            "hours2," +
+                            "hours3," +
+                            "hours4," +
+                            "hours5," +
+                            "hours6," +
+                            "hours7 " +
+                            "FROM DDT_SCHEDULE");
+            while (rs.next()) {
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt("id"));
+                schedule.setDateFrom(rs.getDate("d_from"));
+                Emp emp = getEmpById(new Integer(rs.getInt("emp_id")));
+                schedule.setEmp(emp);
+                for (int i = 1; i < 8; i++) {
+                    schedule.setHours(i,rs.getInt("hours"+i));
+                }
+                schedules.add(schedule);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return schedules;
     }
 }

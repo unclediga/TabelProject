@@ -24,6 +24,7 @@ public class MainWindow extends JFrame {
     private FormWindow frmIlls = null;
     private FormWindow frmTbl = null;
     private DBSrv dbsrv = null;
+    private FormWindow frmSch;
 
 
     public MainWindow() throws HeadlessException {
@@ -142,6 +143,16 @@ public class MainWindow extends JFrame {
         );
         menuBar.add(tblListViewItem);
 
+        JMenuItem scheduleListViewItem = new JMenuItem("Расписание");
+        scheduleListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.SCH);
+            }
+        }
+        );
+        menuBar.add(scheduleListViewItem);
+
 
     }
 
@@ -179,6 +190,13 @@ public class MainWindow extends JFrame {
                 desktop.add(frmTbl);
                 frmTbl.pack();
                 frmTbl.setVisible(true);
+                break;
+            case SCH:
+                frmSch = new FormWindow("Расписание");
+                frmSch.add(new ScheduleListView(frmSch, dbsrv), BorderLayout.CENTER);
+                desktop.add(frmSch);
+                frmSch.pack();
+                frmSch.setVisible(true);
                 break;
             default:
                 System.out.println("Form not found!");

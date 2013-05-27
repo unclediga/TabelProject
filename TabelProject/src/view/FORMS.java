@@ -7,5 +7,5 @@ public enum FORMS {
     EMP,
     LEAVE,
     ILL,
-    TBL
+    SCH, TBL
 }

@@ -86,7 +86,7 @@ public class DBSrv {
 
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP");
+            ResultSet rs = st.executeQuery("SELECT id,lname,fname,mname,appoint,d_hire,d_fire FROM DDT_EMP");
             while (rs.next()) {
                 Emp emp = new Emp();
                 emp.setId(rs.getInt("id"));
@@ -94,6 +94,7 @@ public class DBSrv {
                 emp.setLastName(rs.getString("lname"));
                 emp.setFirstName(rs.getString("fname"));
                 emp.setMiddleName(rs.getString("mname"));
+                emp.setAppoint(rs.getString("appoint"));
                 emp.setHireDate(rs.getDate("d_hire"));
                 emp.setFireDate(rs.getDate("d_fire"));
                 emps.add(emp);
@@ -123,7 +124,7 @@ public class DBSrv {
 
                     Calendar c = new GregorianCalendar(2000, 1, 1);
                     c.set(2000 + rnd.nextInt(13), 1 + rnd.nextInt(12), 1 + rnd.nextInt(29));
-                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(), c.getTime(), new java.util.Date()));
+                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(),"космонавт" ,c.getTime(), new java.util.Date()));
                 }
                 i++;
             }
@@ -144,7 +145,7 @@ public class DBSrv {
 
         try {
             final String sql =
-                    "SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP" +
+                    "SELECT id,lname,fname,mname,appoint,d_hire,d_fire FROM DDT_EMP" +
                             " WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id.intValue());
@@ -155,6 +156,7 @@ public class DBSrv {
                 emp.setLastName(rs.getString("lname"));
                 emp.setFirstName(rs.getString("fname"));
                 emp.setMiddleName(rs.getString("mname"));
+                emp.setAppoint(rs.getString("appoint"));
                 emp.setHireDate(rs.getDate("d_hire"));
                 emp.setFireDate(rs.getDate("d_fire"));
             }
@@ -186,14 +188,15 @@ public class DBSrv {
             if (emp.getId() == null){
 
                 emp.setId(getNextId());
-                sql = "INSERT INTO DDT_EMP(lname,fname,mname,d_hire,d_fire,id) " +
-                        "VALUES(?,?,?,?,?,?)";
+                sql = "INSERT INTO DDT_EMP(lname,fname,mname,appoint,d_hire,d_fire,id) " +
+                        "VALUES(?,?,?,?,?,?,?)";
             }else{
                 sql =
                         "UPDATE DDT_EMP SET " +
                                 " lname = ?, " +
                                 " fname = ?, " +
                                 " mname = ?, " +
+                                " appoint = ?, " +
                                 " d_hire = ?, " +
                                 " d_fire = ? " +
                                 " WHERE id = ?";
@@ -203,9 +206,10 @@ public class DBSrv {
                 st.setString(1, emp.getLastName());
                 st.setString(2, emp.getFirstName());
                 st.setString(3, emp.getMiddleName());
-                st.setDate(4, UtilToSQL(emp.getHireDate()));
-                st.setDate(5, UtilToSQL(emp.getFireDate()));
-                st.setInt(6, emp.getId());
+                st.setString(4, emp.getAppoint());
+                st.setDate(5, UtilToSQL(emp.getHireDate()));
+                st.setDate(6, UtilToSQL(emp.getFireDate()));
+                st.setInt(7, emp.getId());
                 st.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

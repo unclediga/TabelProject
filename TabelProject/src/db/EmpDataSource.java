@@ -40,7 +40,7 @@ public class EmpDataSource implements ModelDataSource {
     @Override
     public String[] getColumnNames() {
         return         new String[]{
-                "ID", "Фамилия", "Имя", "Отчество", "ДатаПриема","ДатаУвольнения"
+                "ID", "Фамилия", "Имя", "Отчество", "Должность","ДатаПриема","ДатаУвольнения"
         };
 
     }
@@ -49,7 +49,7 @@ public class EmpDataSource implements ModelDataSource {
     public Class[] getColumnClasses() {
         return
                 new Class[]{
-                        Integer.class, String.class, String.class, String.class, Date.class, Date.class};
+                        Integer.class, String.class, String.class, String.class, String.class, Date.class, Date.class};
     }
 
     @Override

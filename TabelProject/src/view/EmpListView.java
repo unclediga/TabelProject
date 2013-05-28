@@ -5,6 +5,7 @@ import model.EmpTableModel;
 import view.editor.DateColumnEditor;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,8 @@ public class EmpListView extends JPanel{
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
-        add(new JScrollPane(table),BorderLayout.CENTER);
+        table.setAutoCreateRowSorter(true);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
         // КНОПКИ
 

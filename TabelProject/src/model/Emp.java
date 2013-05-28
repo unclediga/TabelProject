@@ -11,14 +11,19 @@ public class Emp {
     private String lastName;
     private String firstName;
     private String middleName;
+    private String appoint;
+
+
     private Date hireDate;
     private Date fireDate;
 
-    public Emp(Integer id, String lastName, String firstName, String middleName, Date hireDate, Date fireDate) {
+
+    public Emp(Integer id, String lastName, String firstName, String middleName, String appoint, Date hireDate, Date fireDate) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
+        this.appoint    = appoint;
         this.hireDate = hireDate;
         this.fireDate = fireDate;
     }
@@ -49,6 +54,14 @@ public class Emp {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getAppoint() {
+        return appoint;
+    }
+
+    public void setAppoint(String appoint) {
+        this.appoint = appoint;
     }
 
     public Date getHireDate() {

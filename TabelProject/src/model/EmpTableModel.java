@@ -29,6 +29,7 @@ public class EmpTableModel extends ListTableModel {
                 "Некто",
                 "Некто",
                 "Некто",
+                "космонавт",
                 new Date(),
                 new Date()
         );
@@ -70,9 +71,12 @@ public class EmpTableModel extends ListTableModel {
                     emp.setMiddleName((String) val);
                     break;
                 case 4:
-                    emp.setHireDate((Date) val);
+                    emp.setAppoint((String) val);
                     break;
                 case 5:
+                    emp.setHireDate((Date) val);
+                    break;
+                case 6:
                     emp.setFireDate((Date) val);
                     break;
                 default:
@@ -104,8 +108,10 @@ public class EmpTableModel extends ListTableModel {
                 case 3:
                     return emp.getMiddleName();
                 case 4:
-                    return emp.getHireDate();
+                    return emp.getAppoint();
                 case 5:
+                    return emp.getHireDate();
+                case 6:
                     return emp.getFireDate();
                 default:
                     return "DATA_NO_FOUND";

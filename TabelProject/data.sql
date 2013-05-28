@@ -27,3 +27,13 @@ INSERT INTO DDT_ILL
   VALUES (1,3, 'БЛН' ,DATE '2013-04-06', DATE '2013-04-10');
 INSERT INTO DDT_ILL
   VALUES (1,4, 'БЛН' ,DATE '2013-03-20', DATE '2013-03-25');
+
+/*
+  должности
+  */
+INSERT INTO DDT_APPOINT
+  VALUES (1, 'педагог-организатор','пед.-орг.');
+INSERT INTO DDT_APPOINT
+  VALUES (2, 'педагог доп.образования','пдо');
+INSERT INTO DDT_APPOINT
+  VALUES (3, 'руководитель','рук.стр.');

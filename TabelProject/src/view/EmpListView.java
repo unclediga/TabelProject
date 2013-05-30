@@ -22,7 +22,7 @@ public class EmpListView extends JPanel{
         setLayout(new BorderLayout(0,0));
 
 
-        model = new EmpTableModel(dbsrv);
+        model = new EmpTableModel();
 
 
 

@@ -24,7 +24,12 @@ public class Emp {
     }
 
     public Emp() {
-
+        this.id = null;
+        this.lastName = "Некто";
+        this.firstName = "Некто";
+        this.middleName = "Некто";
+        this.hireDate = new Date();
+        this.fireDate = new Date();
     }
 
     public String getLastName() {

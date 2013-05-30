@@ -1,38 +1,31 @@
 package model;
 
 import db.DBSrv;
-import db.EmpDataSource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Общая модель для всех форм-списков
  */
-public class EmpTableModel extends ListTableModel {
+public class EmpTableModel extends ListTableModel<Emp> {
 
 
-    public EmpTableModel(DBSrv dbsrv) {
+    public EmpTableModel() {
 
-        this.ds = new EmpDataSource(dbsrv);
-        this.data = ds.getData(true);
-        this.changedObjMap = new HashMap<Object,String>(this.data.size());
-        this.columnClasses = ds.getColumnClasses();
-        this.columnNames = ds.getColumnNames();
+        this.columnNames = new String[]{
+                "ID", "Фамилия", "Имя", "Отчество", "ДатаПриема","ДатаУвольнения"
+        };
+        this.columnClasses =   new Class[]{
+                Integer.class, String.class, String.class, String.class, Date.class, Date.class};
+
+        this.changes = new HashMap<Emp, String>(data.size());
     }
 
     @Override
-    public Object createNewObject() {
-
-        Emp emp = new Emp(
-                null,
-                "Некто",
-                "Некто",
-                "Некто",
-                new Date(),
-                new Date()
-        );
-        return emp;
+    public Emp createNewObject() {
+        return new Emp();
     }
 
     public void setColumnValue(Object obj, int columnIndex, Object val) {
@@ -51,8 +44,8 @@ public class EmpTableModel extends ListTableModel {
         // если INSERT или DELETE (что неверно) уже были
         // нечего сбрасывать в UPDATE. Потом пойдут ошибки при обновлении
 
-        if (!changedObjMap.containsKey(emp)){
-            changedObjMap.put(emp,"U");
+        if (!changes.containsKey(emp)){
+            changes.put(emp,"U");
         }
 
 
@@ -113,6 +106,9 @@ public class EmpTableModel extends ListTableModel {
 
     }
 
+    @Override
+    public ArrayList<Emp> getList() {
+        return DBSrv.getInstance().getList(Emp.class);
 
-
+    }
 }

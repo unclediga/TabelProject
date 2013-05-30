@@ -18,8 +18,9 @@ import java.util.*;
  */
 public class DBSrv {
 
-
+    private static DBSrv dbSrv;
     private Connection conn = null;
+    private Map<Class,IMapper> mappers;
 
     public DBSrv() {
 
@@ -48,9 +49,16 @@ public class DBSrv {
         } catch (SQLException e) {
             System.err.println("SQL Exception. See log!");
         }
+
+        // создаём служебные класс для каждого типа хранимых классов
+        mappers = new HashMap<Class, IMapper>(10);
+        mappers.put(Emp.class, new EmpMapper(conn));
+        mappers.put(Leave.class, new LeaveMapper(conn));
+        mappers.put(Ill.class, new IllMapper(conn));
+
     }
 
-    private java.sql.Date UtilToSQL(java.util.Date d) {
+    public static java.sql.Date UtilToSQL(java.util.Date d) {
         if (d != null)
             return new Date(d.getTime());
         else
@@ -135,36 +143,7 @@ public class DBSrv {
     }
 
     public Emp getEmpById(Integer id) {
-        if (conn == null) {
-            System.err.println("No connect!!");
-            return null;
-        }
-
-        Emp emp = null;
-
-        try {
-            final String sql =
-                    "SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP" +
-                            " WHERE id = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, id.intValue());
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                emp = new Emp();
-                emp.setId(rs.getInt("id"));
-                emp.setLastName(rs.getString("lname"));
-                emp.setFirstName(rs.getString("fname"));
-                emp.setMiddleName(rs.getString("mname"));
-                emp.setHireDate(rs.getDate("d_hire"));
-                emp.setFireDate(rs.getDate("d_fire"));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        return emp;
+        return new EmpMapper(conn).get(id);
 
     }
 
@@ -586,5 +565,43 @@ public class DBSrv {
 
 
         return schedules;
+    }
+
+
+    public Object get(Integer objectId,Class objectClass){
+        IMapper mapper = mappers.get(objectClass);
+        return mapper.get(objectId);
+    }
+    public void put(Object object){
+        IMapper mapper = mappers.get(object.getClass());
+        mapper.put(object);
+    }
+    public void remove(Object object){
+        IMapper mapper = mappers.get(object.getClass());
+        mapper.remove(object);
+    }
+    public ArrayList getList(Class cl){
+        IMapper mapper = mappers.get(cl);
+        return mapper.getList();
+    }
+
+    public static DBSrv getInstance() {
+        if (dbSrv == null){
+            dbSrv = new DBSrv();
+        }
+        return dbSrv;
+    }
+
+    public void putAll(Map<Object, String> changes) {
+
+        for(Map.Entry e : changes.entrySet()){
+            String status = (String) e.getValue();
+            if(status.equals("D")){
+                remove(e.getKey());
+            }else {
+                put(e.getKey());
+            }
+        }
+
     }
 }

@@ -16,6 +16,8 @@ public class Schedule {
     public Schedule(){
         for(int i=1;i<8;i++)
             days[i] = 0;
+        this.dateFrom = new Date();
+
     }
 
     public Integer getId() {

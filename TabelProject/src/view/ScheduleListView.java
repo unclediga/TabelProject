@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
  */
 public class ScheduleListView extends JPanel {
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final ListTableModel model;
+    private final ScheduleTableModel model;
     private final JTable table;
 
     public ScheduleListView(FormWindow frm, DBSrv dbsrv) {
@@ -26,7 +26,7 @@ public class ScheduleListView extends JPanel {
         setLayout(new BorderLayout(0,0));
 
 
-        model = new ScheduleTableModel(dbsrv);
+        model = new ScheduleTableModel();
 
 
 

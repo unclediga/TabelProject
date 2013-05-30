@@ -1,8 +1,8 @@
 package model;
 
 import db.DBSrv;
-import db.IllDataSource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -10,29 +10,32 @@ import java.util.HashMap;
 /**
  *
  */
-public class IllTableModel extends ListTableModel {
-    public IllTableModel(DBSrv dbsrv) {
-        this.ds = new IllDataSource(dbsrv);
-        this.data = ds.getData(true);
-        this.changedObjMap = new HashMap<Object,String>(this.data.size());
-        this.columnClasses = ds.getColumnClasses();
-        this.columnNames = ds.getColumnNames();
+public class IllTableModel extends ListTableModel<Ill> {
+
+    public IllTableModel() {
+        this.data = this.getList();
+        this.columnClasses =
+                new Class[]{
+                        Integer.class,
+                        Emp.class,
+                        String.class,
+                        Date.class,
+                        Date.class};
+
+        this.columnNames = new String[]{
+                "ID",
+                "EMP",
+                "TILL_ID",
+                "ДатаНачала",
+                "ДатаОкончания"
+        };
+        this.changes = new HashMap<Ill, String>(data.size());
     }
 
-    @Override
-    public Object createNewObject() {
-
-        Ill ill = new Ill(
-                null,
-                null,
-                Ill.getDefaultType(),
-                new Date(),
-                new Date()
-        );
-        return ill;
+    public Ill createNewObject() {
+        return  new Ill();
     }
 
-    @Override
     public void setColumnValue(Object obj, int columnIndex, Object val) {
 
         if(obj == null){
@@ -49,8 +52,8 @@ public class IllTableModel extends ListTableModel {
         // если INSERT или DELETE (что неверно) уже были
         // нечего сбрасывать в UPDATE. Потом пойдут ошибки при обновлении
 
-        if (!changedObjMap.containsKey(ill)){
-            changedObjMap.put(ill,"U");
+        if (!changes.containsKey(ill)){
+            changes.put(ill,"U");
         }
 
 
@@ -76,7 +79,6 @@ public class IllTableModel extends ListTableModel {
 
     }
 
-    @Override
     public Object getColumnValue(Object obj, int columnIndex) {
         if(obj == null){
             return null;
@@ -106,4 +108,8 @@ public class IllTableModel extends ListTableModel {
         return null;
     }
 
+    @Override
+    public ArrayList<Ill> getList() {
+        return DBSrv.getInstance().getList(Ill.class);
+    }
 }

@@ -4,7 +4,6 @@ import db.DBSrv;
 import model.Emp;
 import model.Ill;
 import model.IllTableModel;
-import model.ListTableModel;
 import view.editor.DateColumnEditor;
 import view.editor.EmpColumnEditor;
 
@@ -20,7 +19,7 @@ import java.util.GregorianCalendar;
  */
 public class IllListView extends JPanel {
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final ListTableModel model;
+    private final IllTableModel model;
     private final JTable table;
 
     public IllListView(FormWindow frm, DBSrv dbsrv) {
@@ -29,7 +28,7 @@ public class IllListView extends JPanel {
         setLayout(new BorderLayout(0,0));
 
 
-        model = new IllTableModel(dbsrv);
+        model = new IllTableModel();
 
 
 

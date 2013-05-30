@@ -1,8 +1,8 @@
 package model;
 
 import db.DBSrv;
-import db.LeaveDataSource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -10,26 +10,23 @@ import java.util.HashMap;
 /**
  *
  */
-public class LeaveTableModel extends ListTableModel {
-    public LeaveTableModel(DBSrv dbsrv) {
-        this.ds = new LeaveDataSource(dbsrv);
-        this.data = ds.getData(true);
-        this.changedObjMap = new HashMap<Object,String>(this.data.size());
-        this.columnClasses = ds.getColumnClasses();
-        this.columnNames = ds.getColumnNames();
+public class LeaveTableModel extends ListTableModel<Leave> {
+
+    public LeaveTableModel() {
+        this.data = this.getList();
+        this.columnNames =         new String[]{
+                "ID", "EMP", "TLEAVE_ID","ДатаНачала", "ДатаОкончания"
+        };
+        this.columnClasses =                 new Class[]{
+                Integer.class, Emp.class, String.class, Date.class, Date.class};
+
+        this.changes = new HashMap<Leave, String>(data.size());
+
     }
 
     @Override
-    public Object createNewObject() {
-
-        Leave leave = new Leave(
-                null,
-                null,
-                Leave.getDefaultType(),
-                new Date(),
-                new Date()
-        );
-        return leave;
+    public Leave createNewObject() {
+        return new Leave();
     }
 
     @Override
@@ -49,8 +46,8 @@ public class LeaveTableModel extends ListTableModel {
         // если INSERT или DELETE (что неверно) уже были
         // нечего сбрасывать в UPDATE. Потом пойдут ошибки при обновлении
 
-        if (!changedObjMap.containsKey(leave)){
-            changedObjMap.put(leave,"U");
+        if (!changes.containsKey(leave)){
+            changes.put(leave,"U");
         }
 
 
@@ -104,6 +101,11 @@ public class LeaveTableModel extends ListTableModel {
                 System.err.println("LeaveTableModel:columnIndex is out of range");
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<Leave> getList() {
+        return DBSrv.getInstance().getList(Leave.class);
     }
 
 }

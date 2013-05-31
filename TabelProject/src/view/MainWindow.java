@@ -129,16 +129,6 @@ public class MainWindow extends JFrame {
         );
         menuBar.add(illListViewItem);
 
-        JMenuItem tblListViewItem = new JMenuItem("Табель");
-        tblListViewItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createForm(FORMS.TBL);
-            }
-        }
-        );
-        menuBar.add(tblListViewItem);
-
         JMenuItem scheduleListViewItem = new JMenuItem("Расписание");
         scheduleListViewItem.addActionListener(new ActionListener() {
             @Override
@@ -149,6 +139,25 @@ public class MainWindow extends JFrame {
         );
         menuBar.add(scheduleListViewItem);
 
+        JMenuItem appointListViewItem = new JMenuItem("Должности");
+        appointListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.APP);
+            }
+        }
+        );
+        menuBar.add(appointListViewItem);
+
+        JMenuItem tblListViewItem = new JMenuItem("Табель");
+        tblListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.TBL);
+            }
+        }
+        );
+        menuBar.add(tblListViewItem);
 
     }
 
@@ -193,6 +202,13 @@ public class MainWindow extends JFrame {
                 desktop.add(frmSch);
                 frmSch.pack();
                 frmSch.setVisible(true);
+                break;
+            case APP:
+                FormWindow frmApp = new FormWindow("Должности");
+                frmApp.add(new AppointListView(frmApp, dbsrv), BorderLayout.CENTER);
+                desktop.add(frmApp);
+                frmApp.pack();
+                frmApp.setVisible(true);
                 break;
             default:
                 System.out.println("Form not found!");

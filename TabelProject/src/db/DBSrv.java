@@ -1,9 +1,6 @@
 package db;
 
-import model.Emp;
-import model.Ill;
-import model.Leave;
-import model.Schedule;
+import model.*;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -58,6 +55,7 @@ public class DBSrv {
         mappers.put(Leave.class, new LeaveMapper(conn));
         mappers.put(Ill.class, new IllMapper(conn));
         mappers.put(Schedule.class, new SchedulelMapper(conn));
+        mappers.put(Appoint.class, new AppointMapper(conn));
 
     }
 
@@ -156,7 +154,7 @@ public class DBSrv {
         mapper.remove(object);
     }
 
-    public ArrayList getList(Class cl){
+    public <T> ArrayList<T> getList(Class<T> cl){
         IMapper mapper = mappers.get(cl);
         return mapper.getList();
     }

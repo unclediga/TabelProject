@@ -12,6 +12,6 @@ public class Msg {
     }
 
     public static void info(Component c, String s) {
-        JOptionPane.showConfirmDialog(c, s, "Информация", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showConfirmDialog(c, s, "Информация", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
     }
 }

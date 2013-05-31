@@ -13,14 +13,15 @@ import java.util.HashMap;
 public class LeaveTableModel extends ListTableModel<Leave> {
 
     public LeaveTableModel() {
-        this.data = this.getList();
         this.columnNames =         new String[]{
                 "ID", "EMP", "TLEAVE_ID","ДатаНачала", "ДатаОкончания"
         };
         this.columnClasses =                 new Class[]{
                 Integer.class, Emp.class, String.class, Date.class, Date.class};
 
-        this.changes = new HashMap<Leave, String>(data.size());
+
+        this.data = this.getList();
+        this.changes = new HashMap<Leave, String>(DBSrv.INIT_CHANGES_COUNT);
 
     }
 

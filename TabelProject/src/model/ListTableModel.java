@@ -56,8 +56,10 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
         }
     }
 
-    public void saveChanges() {
+    public void saveChanges() throws Exception {
         DBSrv.getInstance().putAll((Map<Object, String>) changes);
+        DBSrv.getInstance().doCommit();
+        changes.clear();
         fireTableDataChanged();
     }
 

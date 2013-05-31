@@ -20,7 +20,8 @@ public class EmpTableModel extends ListTableModel<Emp> {
         this.columnClasses =   new Class[]{
                 Integer.class, String.class, String.class, String.class, Date.class, Date.class};
 
-        this.changes = new HashMap<Emp, String>(data.size());
+        this.data = this.getList();
+        this.changes = new HashMap<Emp, String>(DBSrv.INIT_CHANGES_COUNT);
     }
 
     @Override

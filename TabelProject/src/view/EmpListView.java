@@ -76,7 +76,13 @@ public class EmpListView extends JPanel{
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.saveChanges();
+                try {
+                    model.saveChanges();
+                    Msg.info(EmpListView.this, "Операция выполнена успешно.");
+
+                } catch (Exception e1) {
+                    Msg.error(EmpListView.this,"Не удалось сохранить данные!");
+                }
             }
         });
 

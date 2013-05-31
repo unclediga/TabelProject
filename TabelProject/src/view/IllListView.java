@@ -85,7 +85,12 @@ public class IllListView extends JPanel {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.saveChanges();
+                try {
+                    model.saveChanges();
+                    Msg.info(IllListView.this, "Операция выполнена успешно.");
+                } catch (Exception e1) {
+                    Msg.error(IllListView.this,"Не удалось сохранить данные!");
+                }
             }
         });
 

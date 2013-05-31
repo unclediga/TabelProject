@@ -85,7 +85,12 @@ public class LeaveListView extends JPanel {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.saveChanges();
+                try {
+                    model.saveChanges();
+                    Msg.info(LeaveListView.this, "Операция выполнена успешно.");
+                } catch (Exception e1) {
+                    Msg.error(LeaveListView.this,"Не удалось сохранить данные!");
+                }
             }
         });
 

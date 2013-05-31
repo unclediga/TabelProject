@@ -13,7 +13,6 @@ import java.util.HashMap;
 public class IllTableModel extends ListTableModel<Ill> {
 
     public IllTableModel() {
-        this.data = this.getList();
         this.columnClasses =
                 new Class[]{
                         Integer.class,
@@ -29,7 +28,9 @@ public class IllTableModel extends ListTableModel<Ill> {
                 "ДатаНачала",
                 "ДатаОкончания"
         };
-        this.changes = new HashMap<Ill, String>(data.size());
+
+        this.data = this.getList();
+        this.changes = new HashMap<Ill, String>(DBSrv.INIT_CHANGES_COUNT);
     }
 
     public Ill createNewObject() {

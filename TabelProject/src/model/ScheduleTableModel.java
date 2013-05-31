@@ -29,7 +29,8 @@ public class ScheduleTableModel extends ListTableModel {
                 Integer.class,
                 Integer.class};
 
-        this.changes = new HashMap<Schedule, String>(data.size());
+        this.changes = new HashMap<Schedule, String>(DBSrv.INIT_CHANGES_COUNT);
+        this.data = this.getList();
 
     }
 
@@ -60,6 +61,8 @@ public class ScheduleTableModel extends ListTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         super.setValueAt(aValue, rowIndex, columnIndex);
+        // Если обновились значения дней, то поле Всего тоже пересчиталось.
+        // Надо обновить значение из модели
         if(columnIndex > 1 && columnIndex != 10){
             fireTableCellUpdated(rowIndex,10);
         }
@@ -71,6 +74,8 @@ public class ScheduleTableModel extends ListTableModel {
         if (obj == null) {
             return;
         }
+
+        assert (obj instanceof Schedule);
 
         if (!(obj instanceof Schedule)) {
             System.err.println("Чё-то не то передал");

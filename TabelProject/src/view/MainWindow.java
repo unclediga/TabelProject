@@ -1,6 +1,7 @@
 package view;
 
 import db.DBSrv;
+import test.TestUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +88,7 @@ public class MainWindow extends JFrame {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        dbsrv.srvInsertEmpList();
+                        TestUtils.insertEmpList();
                     }
                 });
             }

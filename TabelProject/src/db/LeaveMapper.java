@@ -38,7 +38,6 @@ public class LeaveMapper implements IMapper<Leave> {
                 leave.setId(rs.getInt("id"));
                 leave.setDateFrom(rs.getDate("d_from"));
                 leave.setDateTo(rs.getDate("d_to"));
-
                 Emp emp = DBSrv.getInstance().getEmpById(new Integer(rs.getInt("emp_id")));
                 leave.setEmp(emp);
             }

@@ -30,7 +30,7 @@ public class DBSrv {
         try {
             prop.load(new FileInputStream("tabel.properties"));
         } catch (IOException e) {
-            System.err.print("Can't read property file");
+            System.err.println("Can't read property file.");
             return;
         }
 
@@ -44,9 +44,11 @@ public class DBSrv {
             conn = DriverManager.getConnection(connString, connUser, connPassword);
             conn.setAutoCommit(false);
         } catch (ClassNotFoundException e) {
-            System.err.println("Not found JDBC Driver");
+            System.err.println("Not found JDBC Driver.");
+            return;
         } catch (SQLException e) {
             System.err.println("SQL Exception. See log!");
+            return;
         }
 
         // создаём служебные класс для каждого типа хранимых классов
@@ -203,7 +205,11 @@ public class DBSrv {
         try {
             conn.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                conn.rollback();
+            }finally {
+                e.printStackTrace();
+            }
             throw new Exception("FAILED");
         }
     }

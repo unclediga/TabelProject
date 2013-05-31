@@ -1,5 +1,6 @@
 package db;
 
+import model.Appoint;
 import model.Emp;
 
 import java.sql.*;
@@ -27,8 +28,10 @@ public class EmpMapper implements IMapper<Emp> {
 
         try {
             final String sql =
-                    "SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP" +
-                            " WHERE id = ?";
+                    "SELECT " +
+                            "id,lname,fname,mname,d_hire,d_fire,appoint_id " +
+                    "FROM DDT_EMP" +
+                    " WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, objectId.intValue());
             ResultSet rs = st.executeQuery();
@@ -40,6 +43,8 @@ public class EmpMapper implements IMapper<Emp> {
                 emp.setMiddleName(rs.getString("mname"));
                 emp.setHireDate(rs.getDate("d_hire"));
                 emp.setFireDate(rs.getDate("d_fire"));
+                Appoint appoint = (Appoint) DBSrv.getInstance().get(rs.getInt("appoint_id"), Appoint.class);
+                emp.setAppoint(appoint);
             }
             rs.close();
         } catch (SQLException e) {
@@ -58,8 +63,8 @@ public class EmpMapper implements IMapper<Emp> {
         if (emp.getId() == null){
 
             emp.setId(DBSrv.getInstance().getNextId());
-            sql = "INSERT INTO DDT_EMP(lname,fname,mname,d_hire,d_fire,id) " +
-                    "VALUES(?,?,?,?,?,?)";
+            sql = "INSERT INTO DDT_EMP(lname,fname,mname,d_hire,d_fire,id,appoint_id) " +
+                    "VALUES(?,?,?,?,?,?,?)";
         }else{
             sql =
                     "UPDATE DDT_EMP SET " +
@@ -67,7 +72,8 @@ public class EmpMapper implements IMapper<Emp> {
                             " fname = ?, " +
                             " mname = ?, " +
                             " d_hire = ?, " +
-                            " d_fire = ? " +
+                            " d_fire = ?, " +
+                            " appoint_id = ? " +
                             " WHERE id = ?";
         }
         try {
@@ -77,7 +83,9 @@ public class EmpMapper implements IMapper<Emp> {
             st.setString(3, emp.getMiddleName());
             st.setDate(4, DBSrv.UtilToSQL(emp.getHireDate()));
             st.setDate(5, DBSrv.UtilToSQL(emp.getFireDate()));
-            st.setInt(6, emp.getId());
+            Appoint appoint = emp.getAppoint();
+            st.setInt(6, appoint == null ? null : emp.getAppoint().getId());
+            st.setInt(7, emp.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,7 +126,7 @@ public class EmpMapper implements IMapper<Emp> {
 
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT id,lname,fname,mname,d_hire,d_fire FROM DDT_EMP");
+            ResultSet rs = st.executeQuery("SELECT id,lname,fname,mname,d_hire,d_fire,appoint_id FROM DDT_EMP");
             while (rs.next()) {
                 Emp emp = new Emp();
                 emp.setId(rs.getInt("id"));
@@ -128,6 +136,8 @@ public class EmpMapper implements IMapper<Emp> {
                 emp.setMiddleName(rs.getString("mname"));
                 emp.setHireDate(rs.getDate("d_hire"));
                 emp.setFireDate(rs.getDate("d_fire"));
+                Appoint appoint = (Appoint) DBSrv.getInstance().get(rs.getInt("appoint_id"), Appoint.class);
+                emp.setAppoint(appoint);
                 emps.add(emp);
             }
             rs.close();

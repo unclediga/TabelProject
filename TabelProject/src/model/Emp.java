@@ -13,6 +13,15 @@ public class Emp {
     private String middleName;
     private Date hireDate;
     private Date fireDate;
+    private Appoint appoint;
+
+    public Appoint getAppoint() {
+        return appoint;
+    }
+
+    public void setAppoint(Appoint appoint) {
+        this.appoint = appoint;
+    }
 
     public Emp(Integer id, String lastName, String firstName, String middleName, Date hireDate, Date fireDate) {
         this.id = id;

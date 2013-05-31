@@ -1,7 +1,9 @@
 package view;
 
 import db.DBSrv;
+import model.Appoint;
 import model.EmpTableModel;
+import view.editor.AppointColumnEditor;
 import view.editor.DateColumnEditor;
 
 import javax.swing.*;
@@ -28,6 +30,7 @@ public class EmpListView extends JPanel{
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
+        table.setDefaultEditor(Appoint.class, new AppointColumnEditor());
         add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ

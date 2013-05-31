@@ -58,7 +58,7 @@ public class AppointMapper implements IMapper<Appoint> {
                     "VALUES(?,?,?)";
         }else{
             sql =
-                    "UPDATE DDT_LEAVE SET " +
+                    "UPDATE DDT_APPOINT SET " +
                             " name = ?, " +
                             " socr = ? " +
                             " WHERE id = ?";

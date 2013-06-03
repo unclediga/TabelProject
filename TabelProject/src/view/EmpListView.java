@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -18,7 +19,7 @@ public class EmpListView extends JPanel{
     private final EmpTableModel model;
     private final JTable table;
 
-    public EmpListView(FormWindow frm, DBSrv dbsrv) {
+    public EmpListView(final FormWindow frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));
@@ -103,25 +104,13 @@ public class EmpListView extends JPanel{
                 frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
                 frmTrans.pack();
                 frmTrans.setVisible(true);
+                frm.getDesktopPane().add(frmTrans);
+                try {
+                    frmTrans.setSelected(true);
+                } catch (PropertyVetoException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
-    }
-
-    public static void main(String[] args) {
-        final int DEFAULT_HEIGHT = 500;
-        final int DEFAULT_WIDTH = 500;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame fr = new JFrame("Список работников");
-                fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                //fr.add(new EmpListView());
-                fr.pack();
-                fr.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
-                fr.setVisible(true);
-                fr.setBackground(Color.YELLOW);
-            }
-        });
-
     }
 }

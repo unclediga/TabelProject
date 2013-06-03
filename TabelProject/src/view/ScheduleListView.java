@@ -20,7 +20,7 @@ public class ScheduleListView extends JPanel {
     private final ScheduleTableModel model;
     private final JTable table;
 
-    public ScheduleListView(FormWindow frm, DBSrv dbsrv) {
+    public ScheduleListView(FormWindow frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));

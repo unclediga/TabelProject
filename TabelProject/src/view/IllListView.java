@@ -22,7 +22,7 @@ public class IllListView extends JPanel {
     private final IllTableModel model;
     private final JTable table;
 
-    public IllListView(FormWindow frm, DBSrv dbsrv) {
+    public IllListView(FormWindow frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));

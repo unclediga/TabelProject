@@ -222,35 +222,35 @@ public class MainWindow extends JFrame {
         switch (frm) {
             case EMP:
                 FormWindow frmEmps = new FormWindow("Работнички");
-                frmEmps.add(new EmpListView(frmEmps, dbsrv), BorderLayout.CENTER);
+                frmEmps.add(new EmpListView(frmEmps), BorderLayout.CENTER);
                 desktop.add(frmEmps);
                 frmEmps.pack();
                 frmEmps.setVisible(true);
                 break;
             case LEAVE:
                 FormWindow frmLeaves = new FormWindow("Отпуска");
-                frmLeaves.add(new LeaveListView(frmLeaves, dbsrv), BorderLayout.CENTER);
+                frmLeaves.add(new LeaveListView(frmLeaves), BorderLayout.CENTER);
                 desktop.add(frmLeaves);
                 frmLeaves.pack();
                 frmLeaves.setVisible(true);
                 break;
             case ILL:
                 FormWindow frmIlls = new FormWindow("Больничные");
-                frmIlls.add(new IllListView(frmIlls, dbsrv), BorderLayout.CENTER);
+                frmIlls.add(new IllListView(frmIlls), BorderLayout.CENTER);
                 desktop.add(frmIlls);
                 frmIlls.pack();
                 frmIlls.setVisible(true);
                 break;
             case TBL:
                 FormWindow frmTbl = new FormWindow("Табель");
-                frmTbl.add(new EmpListView(frmTbl, dbsrv), BorderLayout.CENTER);
+                frmTbl.add(new EmpListView(frmTbl), BorderLayout.CENTER);
                 desktop.add(frmTbl);
                 frmTbl.pack();
                 frmTbl.setVisible(true);
                 break;
             case SCH:
                 FormWindow frmSch = new FormWindow("Расписание");
-                frmSch.add(new ScheduleListView(frmSch, dbsrv), BorderLayout.CENTER);
+                frmSch.add(new ScheduleListView(frmSch), BorderLayout.CENTER);
                 desktop.add(frmSch);
                 frmSch.pack();
                 frmSch.setVisible(true);

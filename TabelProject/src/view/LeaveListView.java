@@ -22,7 +22,7 @@ public class LeaveListView extends JPanel {
     private final LeaveTableModel model;
     private final JTable table;
 
-    public LeaveListView(FormWindow frm, DBSrv dbsrv) {
+    public LeaveListView(FormWindow frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));

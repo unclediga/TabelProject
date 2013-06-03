@@ -1,6 +1,5 @@
 package view;
 
-import db.DBSrv;
 import model.Appoint;
 import model.EmpTableModel;
 import view.editor.AppointColumnEditor;
@@ -14,25 +13,25 @@ import java.beans.PropertyVetoException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class EmpListView extends JPanel{
-    private GregorianCalendar calendar = new GregorianCalendar();
+public class EmpListView extends JPanel {
     private final EmpTableModel model;
     private final JTable table;
+    private GregorianCalendar calendar = new GregorianCalendar();
 
     public EmpListView(final FormWindow frm) {
 
         setBackground(Color.darkGray);
-        setLayout(new BorderLayout(0,0));
+        setLayout(new BorderLayout(0, 0));
 
 
         model = new EmpTableModel();
 
 
-
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
         table.setDefaultEditor(Appoint.class, new AppointColumnEditor());
-        add(new JScrollPane(table),BorderLayout.CENTER);
+        table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
         // КНОПКИ
 
@@ -67,7 +66,7 @@ public class EmpListView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.addRow();
-                int addedRow = table.convertRowIndexToView(model.getRowCount()-1);
+                int addedRow = table.convertRowIndexToView(model.getRowCount() - 1);
                 table.changeSelection(addedRow, 0, false, false);
             }
         });
@@ -85,7 +84,7 @@ public class EmpListView extends JPanel{
                     Msg.info(EmpListView.this, "Операция выполнена успешно.");
 
                 } catch (Exception e1) {
-                    Msg.error(EmpListView.this,"Не удалось сохранить данные!");
+                    Msg.error(EmpListView.this, "Не удалось сохранить данные!");
                 }
             }
         });
@@ -93,7 +92,13 @@ public class EmpListView extends JPanel{
         btnRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int r = table.getSelectedRow();
                 model.refresh();
+                if(model.getRowCount() > 0){
+                  if(r < 0) r = 0;
+                  else if(r > model.getRowCount()) r = model.getRowCount() - 1;
+                  table.setRowSelectionInterval(r, r);
+                }
             }
         });
 

@@ -61,11 +61,11 @@ public class MainWindow extends JFrame {
             public void run() {
                 //Чтобы окно было в стиле МЕТАЛ, иначе будет в Видовом L&F
                 JFrame.setDefaultLookAndFeelDecorated(true);
-                try {
-                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
-                } catch (UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
+//                } catch (UnsupportedLookAndFeelException e) {
+//                    e.printStackTrace();
+//                }
                 JFrame frame = new MainWindow();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setVisible(true);
@@ -123,6 +123,15 @@ public class MainWindow extends JFrame {
             }
         });
 
+        //НАЗНАЧЕНИЯ
+        JMenuItem transListViewItem = new JMenuItem("Назначения");
+        transListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.TRANS);
+            }
+        });
+
         //ТАБЕЛЬ
         JMenuItem tblListViewItem = new JMenuItem("Табель");
         tblListViewItem.addActionListener(new ActionListener() {
@@ -172,6 +181,9 @@ public class MainWindow extends JFrame {
         menuBar.add(empListViewItem);
         // расписание
         menuBar.add(scheduleListViewItem);
+        //табель
+        menuBar.add(transListViewItem);
+
         //табель
         menuBar.add(tblListViewItem);
 
@@ -249,6 +261,13 @@ public class MainWindow extends JFrame {
                 desktop.add(frmApp);
                 frmApp.pack();
                 frmApp.setVisible(true);
+                break;
+            case TRANS:
+                FormWindow frmTrans = new FormWindow("Назначения");
+                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
+                desktop.add(frmTrans);
+                frmTrans.pack();
+                frmTrans.setVisible(true);
                 break;
             default:
                 System.out.println("Form not found!");

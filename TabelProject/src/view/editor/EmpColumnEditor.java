@@ -21,11 +21,11 @@ public class EmpColumnEditor extends AbstractCellEditor implements TableCellEdit
     private JComboBox comboEmp;
 
 
-    public EmpColumnEditor(DBSrv db) {
+    public EmpColumnEditor() {
 
         // работнички
         //empList = db.getEmpsFromTxt();
-        empList = db.getEmps();
+        empList = DBSrv.getInstance().getEmps();
         comboEmp = new JComboBox(empList.toArray());
         comboEmp.setFont(comboEmp.getFont().deriveFont(Font.PLAIN));
         empEditor = new DefaultCellEditor(comboEmp);

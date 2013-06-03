@@ -32,7 +32,7 @@ public class ScheduleListView extends JPanel {
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
-        table.setDefaultEditor(Emp.class, new EmpColumnEditor(dbsrv));
+        table.setDefaultEditor(Emp.class, new EmpColumnEditor());
         table.setRowHeight(table.getRowHeight() + 5);
         table.getColumnModel().getColumn(1).setPreferredWidth(350);
         table.getColumnModel().getColumn(2).setPreferredWidth(120);

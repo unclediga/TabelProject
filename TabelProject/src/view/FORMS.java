@@ -8,5 +8,5 @@ public enum FORMS {
     LEAVE,
     ILL,
     SCH,
-    APP, TBL
+    APP, TRANS, TBL
 }

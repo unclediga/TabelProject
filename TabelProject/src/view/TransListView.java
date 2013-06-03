@@ -1,10 +1,10 @@
 package view;
 
 import db.DBSrv;
-import model.Appoint;
-import model.EmpTableModel;
+import model.*;
 import view.editor.AppointColumnEditor;
 import view.editor.DateColumnEditor;
+import view.editor.EmpColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,25 +13,32 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class EmpListView extends JPanel{
+/**
+ *
+ */
+public class TransListView extends JPanel {
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final EmpTableModel model;
+    private final TransTableModel model;
     private final JTable table;
 
-    public EmpListView(FormWindow frm, DBSrv dbsrv) {
+    public TransListView(FormWindow frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));
 
 
-        model = new EmpTableModel();
+        model = new TransTableModel();
 
 
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
+        table.setDefaultEditor(Emp.class, new EmpColumnEditor());
         table.setDefaultEditor(Appoint.class, new AppointColumnEditor());
-        add(new JScrollPane(table),BorderLayout.CENTER);
+
+
+        table.setRowHeight(table.getRowHeight() + 5);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
         // КНОПКИ
 
@@ -66,8 +73,6 @@ public class EmpListView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.addRow();
-                int addedRow = table.convertRowIndexToView(model.getRowCount()-1);
-                table.changeSelection(addedRow, 0, false, false);
             }
         });
         btnDel.addActionListener(new ActionListener() {
@@ -81,10 +86,9 @@ public class EmpListView extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.saveChanges();
-                    Msg.info(EmpListView.this, "Операция выполнена успешно.");
-
+                    Msg.info(TransListView.this, "Операция выполнена успешно.");
                 } catch (Exception e1) {
-                    Msg.error(EmpListView.this,"Не удалось сохранить данные!");
+                    Msg.error(TransListView.this,"Не удалось сохранить данные!");
                 }
             }
         });
@@ -96,32 +100,6 @@ public class EmpListView extends JPanel{
             }
         });
 
-        btnEdit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FormWindow frmTrans = new FormWindow("Назначения");
-                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
-                frmTrans.pack();
-                frmTrans.setVisible(true);
-            }
-        });
-    }
-
-    public static void main(String[] args) {
-        final int DEFAULT_HEIGHT = 500;
-        final int DEFAULT_WIDTH = 500;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame fr = new JFrame("Список работников");
-                fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                //fr.add(new EmpListView());
-                fr.pack();
-                fr.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
-                fr.setVisible(true);
-                fr.setBackground(Color.YELLOW);
-            }
-        });
 
     }
 }

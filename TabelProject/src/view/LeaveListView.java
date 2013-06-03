@@ -34,7 +34,7 @@ public class LeaveListView extends JPanel {
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
-        table.setDefaultEditor(Emp.class, new EmpColumnEditor(dbsrv));
+        table.setDefaultEditor(Emp.class, new EmpColumnEditor());
         table.getColumnModel().getColumn(2).setCellEditor(
                 new DefaultCellEditor(
                         new JComboBox(Leave.getTypes())));

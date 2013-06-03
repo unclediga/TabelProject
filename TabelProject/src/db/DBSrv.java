@@ -58,6 +58,7 @@ public class DBSrv {
         mappers.put(Ill.class, new IllMapper(conn));
         mappers.put(Schedule.class, new SchedulelMapper(conn));
         mappers.put(Appoint.class, new AppointMapper(conn));
+        mappers.put(Trans.class, new TransMapper(conn));
 
     }
 

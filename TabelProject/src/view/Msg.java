@@ -8,10 +8,10 @@ import java.awt.*;
  */
 public class Msg {
     public static void error(Component c,String s) {
-        JOptionPane.showConfirmDialog(c, s, "Ошибка", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(c, s, "Ошибка", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void info(Component c, String s) {
-        JOptionPane.showConfirmDialog(c, s, "Информация", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(c, s, "Информация", JOptionPane.INFORMATION_MESSAGE);
     }
 }

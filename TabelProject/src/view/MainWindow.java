@@ -64,7 +64,7 @@ public class MainWindow extends JFrame {
                 try {
                     UIManager.setLookAndFeel(new NimbusLookAndFeel());
                 } catch (UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    e.printStackTrace();
                 }
                 JFrame frame = new MainWindow();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -165,6 +165,7 @@ public class MainWindow extends JFrame {
         menuBar.setLayout(new GridLayout(1,10));
         // ФАЙЛ
         JMenu fileMenu = new JMenu("Файл");
+        fileMenu.setPreferredSize(new Dimension(10,10));
         menuBar.add(fileMenu);
         fileMenu.add(exitItem);
         // работники
@@ -184,6 +185,13 @@ public class MainWindow extends JFrame {
         JMenu dicMenu = new JMenu("Справочники");
         menuBar.add(dicMenu);
         dicMenu.add(appointListViewItem);
+
+        // Вставлю распорку для красоты
+        // как советуют в java tutorial
+
+        menuBar.add(Box.createHorizontalStrut(100));
+        menuBar.add(Box.createHorizontalBox());
+        menuBar.add(Box.createHorizontalGlue());
 
         //Сервис
         JMenu srvMenu = new JMenu("Сервис");

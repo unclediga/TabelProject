@@ -34,7 +34,7 @@ public class TestUtils {
 
                     Calendar c = new GregorianCalendar(2000, 1, 1);
                     c.set(2000 + rnd.nextInt(13), 1 + rnd.nextInt(12), 1 + rnd.nextInt(29));
-                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(), c.getTime(), new java.util.Date()));
+                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(), null,c.getTime(), new java.util.Date()));
                 }
                 i++;
             }

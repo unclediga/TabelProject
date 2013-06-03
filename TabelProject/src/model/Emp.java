@@ -11,8 +11,6 @@ public class Emp {
     private String lastName;
     private String firstName;
     private String middleName;
-    private String appoint;
-
 
     private Date hireDate;
     private Date fireDate;
@@ -27,7 +25,7 @@ public class Emp {
     }
 
 
-    public Emp(Integer id, String lastName, String firstName, String middleName, String appoint, Date hireDate, Date fireDate) {
+    public Emp(Integer id, String lastName, String firstName, String middleName, Appoint appoint, Date hireDate, Date fireDate) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -44,6 +42,7 @@ public class Emp {
         this.middleName = "Некто";
         this.hireDate = new Date();
         this.fireDate = new Date();
+        this.appoint = null;
     }
 
     public String getLastName() {
@@ -68,14 +67,6 @@ public class Emp {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
-    }
-
-    public String getAppoint() {
-        return appoint;
-    }
-
-    public void setAppoint(String appoint) {
-        this.appoint = appoint;
     }
 
     public Date getHireDate() {

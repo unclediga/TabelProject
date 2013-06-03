@@ -4,7 +4,6 @@ import db.DBSrv;
 import model.Emp;
 import model.Leave;
 import model.LeaveTableModel;
-import model.ListTableModel;
 import view.editor.DateColumnEditor;
 import view.editor.EmpColumnEditor;
 
@@ -20,7 +19,7 @@ import java.util.GregorianCalendar;
  */
 public class LeaveListView extends JPanel {
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final ListTableModel model;
+    private final LeaveTableModel model;
     private final JTable table;
 
     public LeaveListView(FormWindow frm, DBSrv dbsrv) {
@@ -29,7 +28,7 @@ public class LeaveListView extends JPanel {
         setLayout(new BorderLayout(0,0));
 
 
-        model = new LeaveTableModel(dbsrv);
+        model = new LeaveTableModel();
 
 
 
@@ -86,7 +85,12 @@ public class LeaveListView extends JPanel {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.saveChanges();
+                try {
+                    model.saveChanges();
+                    Msg.info(LeaveListView.this, "Операция выполнена успешно.");
+                } catch (Exception e1) {
+                    Msg.error(LeaveListView.this,"Не удалось сохранить данные!");
+                }
             }
         });
 

@@ -1,11 +1,12 @@
 package view;
 
 import db.DBSrv;
+import model.Appoint;
 import model.EmpTableModel;
+import view.editor.AppointColumnEditor;
 import view.editor.DateColumnEditor;
 
 import javax.swing.*;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,14 +24,14 @@ public class EmpListView extends JPanel{
         setLayout(new BorderLayout(0,0));
 
 
-        model = new EmpTableModel(dbsrv);
+        model = new EmpTableModel();
 
 
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
-        table.setAutoCreateRowSorter(true);
-        add(new JScrollPane(table), BorderLayout.CENTER);
+        table.setDefaultEditor(Appoint.class, new AppointColumnEditor());
+        add(new JScrollPane(table),BorderLayout.CENTER);
 
         // КНОПКИ
 
@@ -78,7 +79,13 @@ public class EmpListView extends JPanel{
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.saveChanges();
+                try {
+                    model.saveChanges();
+                    Msg.info(EmpListView.this, "Операция выполнена успешно.");
+
+                } catch (Exception e1) {
+                    Msg.error(EmpListView.this,"Не удалось сохранить данные!");
+                }
             }
         });
 

@@ -31,7 +31,11 @@ public class Ill {
     }
 
     public Ill() {
-
+        this.id = null;
+        this.emp = null;
+        this.till_id = Ill.getDefaultType();
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
     }
 
     public Date getDateTo() {

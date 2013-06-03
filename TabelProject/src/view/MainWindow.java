@@ -1,8 +1,10 @@
 package view;
 
 import db.DBSrv;
+import test.TestUtils;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +38,12 @@ public class MainWindow extends JFrame {
 
 
         dbsrv = new DBSrv();
+        try {
+            dbsrv.getConnection();
+        } catch (Exception e) {
+            System.err.println("Application will be stopped.");
+            exitApplication();
+        }
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -53,6 +61,11 @@ public class MainWindow extends JFrame {
             public void run() {
                 //Чтобы окно было в стиле МЕТАЛ, иначе будет в Видовом L&F
                 JFrame.setDefaultLookAndFeelDecorated(true);
+                try {
+                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                } catch (UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
                 JFrame frame = new MainWindow();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setVisible(true);
@@ -65,10 +78,9 @@ public class MainWindow extends JFrame {
      * Создаёт менюшки для главного окна
      */
     private void createMenus() {
-        JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
-        JMenu fileMenu = new JMenu("Файл");
-        menuBar.add(fileMenu);
+
+
+        // ВЫХОД
         JMenuItem exitItem = new JMenuItem("Выход");
         exitItem.addActionListener(new ActionListener() {
             @Override
@@ -76,10 +88,9 @@ public class MainWindow extends JFrame {
                 exitApplication();
             }
         });
-        fileMenu.add(exitItem);
 
-        JMenu srvMenu = new JMenu("Сервис");
-        menuBar.add(srvMenu);
+
+        // СЕРВИС
         JMenuItem srvInsEmpItem = new JMenuItem("Заполнить работников");
         srvInsEmpItem.addActionListener(new ActionListener() {
             @Override
@@ -87,66 +98,105 @@ public class MainWindow extends JFrame {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        dbsrv.srvInsertEmpList();
+                        TestUtils.insertEmpList();
                     }
                 });
             }
         });
-        srvMenu.add(srvInsEmpItem);
 
+        // РАБОТНИКИ
         JMenuItem empListViewItem = new JMenuItem("Работники");
 //        empListViewItem.setPreferredSize(new Dimension(-1,20));
-
         empListViewItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createForm(FORMS.EMP);
             }
-        }
-        );
-        menuBar.add(empListViewItem);
+        });
 
-        JMenuItem leaveListViewItem = new JMenuItem("Отпуска");
-
-        leaveListViewItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createForm(FORMS.LEAVE);
-            }
-        }
-        );
-        menuBar.add(leaveListViewItem);
-
-        JMenuItem illListViewItem = new JMenuItem("Больничные");
-
-        illListViewItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createForm(FORMS.ILL);
-            }
-        }
-        );
-        menuBar.add(illListViewItem);
-
-        JMenuItem tblListViewItem = new JMenuItem("Табель");
-        tblListViewItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createForm(FORMS.TBL);
-            }
-        }
-        );
-        menuBar.add(tblListViewItem);
-
+        // РАСПИСАНИЕ
         JMenuItem scheduleListViewItem = new JMenuItem("Расписание");
         scheduleListViewItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createForm(FORMS.SCH);
             }
-        }
-        );
+        });
+
+        //ТАБЕЛЬ
+        JMenuItem tblListViewItem = new JMenuItem("Табель");
+        tblListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.TBL);
+            }
+        });
+
+        // НЕЯВКИ
+        JMenuItem leaveListViewItem = new JMenuItem("Отпуска");
+        leaveListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.LEAVE);
+            }
+        });
+
+        JMenuItem illListViewItem = new JMenuItem("Больничные");
+        illListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.ILL);
+            }
+        });
+
+        // СПРАВОЧНИКИ
+        JMenuItem appointListViewItem = new JMenuItem("Должности");
+        appointListViewItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createForm(FORMS.APP);
+            }
+        });
+
+
+        // ОБЩЕЕ МЕНЮ
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        menuBar.setLayout(new GridLayout(1,10));
+        // ФАЙЛ
+        JMenu fileMenu = new JMenu("Файл");
+        fileMenu.setPreferredSize(new Dimension(10,10));
+        menuBar.add(fileMenu);
+        fileMenu.add(exitItem);
+        // работники
+        menuBar.add(empListViewItem);
+        // расписание
         menuBar.add(scheduleListViewItem);
+        //табель
+        menuBar.add(tblListViewItem);
+
+        //НЕЯВКИ
+        JMenu disMenu = new JMenu("Неявки");
+        menuBar.add(disMenu);
+        disMenu.add(leaveListViewItem);
+        disMenu.add(illListViewItem);
+
+        // Справочники
+        JMenu dicMenu = new JMenu("Справочники");
+        menuBar.add(dicMenu);
+        dicMenu.add(appointListViewItem);
+
+        // Вставлю распорку для красоты
+        // как советуют в java tutorial
+
+        menuBar.add(Box.createHorizontalStrut(100));
+        menuBar.add(Box.createHorizontalBox());
+        menuBar.add(Box.createHorizontalGlue());
+
+        //Сервис
+        JMenu srvMenu = new JMenu("Сервис");
+        menuBar.add(srvMenu);
+        srvMenu.add(srvInsEmpItem);
 
 
     }
@@ -192,6 +242,13 @@ public class MainWindow extends JFrame {
                 desktop.add(frmSch);
                 frmSch.pack();
                 frmSch.setVisible(true);
+                break;
+            case APP:
+                FormWindow frmApp = new FormWindow("Должности");
+                frmApp.add(new AppointListView(frmApp, dbsrv), BorderLayout.CENTER);
+                desktop.add(frmApp);
+                frmApp.pack();
+                frmApp.setVisible(true);
                 break;
             default:
                 System.out.println("Form not found!");

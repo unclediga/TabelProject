@@ -1,39 +1,32 @@
 package model;
 
 import db.DBSrv;
-import db.EmpDataSource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Общая модель для всех форм-списков
  */
-public class EmpTableModel extends ListTableModel {
+public class EmpTableModel extends ListTableModel<Emp> {
 
 
-    public EmpTableModel(DBSrv dbsrv) {
+    public EmpTableModel() {
 
-        this.ds = new EmpDataSource(dbsrv);
-        this.data = ds.getData(true);
-        this.changedObjMap = new HashMap<Object,String>(this.data.size());
-        this.columnClasses = ds.getColumnClasses();
-        this.columnNames = ds.getColumnNames();
+        this.columnNames = new String[]{
+                "ID", "Фамилия", "Имя", "Отчество", "ДатаПриема","ДатаУвольнения","Должность"
+        };
+        this.columnClasses =   new Class[]{
+                Integer.class, String.class, String.class, String.class, Date.class, Date.class, Appoint.class};
+
+        this.data = this.getList();
+        this.changes = new HashMap<Emp, String>(DBSrv.INIT_CHANGES_COUNT);
     }
 
     @Override
-    public Object createNewObject() {
-
-        Emp emp = new Emp(
-                null,
-                "Некто",
-                "Некто",
-                "Некто",
-                "космонавт",
-                new Date(),
-                new Date()
-        );
-        return emp;
+    public Emp createNewObject() {
+        return new Emp();
     }
 
     public void setColumnValue(Object obj, int columnIndex, Object val) {
@@ -52,8 +45,8 @@ public class EmpTableModel extends ListTableModel {
         // если INSERT или DELETE (что неверно) уже были
         // нечего сбрасывать в UPDATE. Потом пойдут ошибки при обновлении
 
-        if (!changedObjMap.containsKey(emp)){
-            changedObjMap.put(emp,"U");
+        if (!changes.containsKey(emp)){
+            changes.put(emp,"U");
         }
 
 
@@ -71,13 +64,13 @@ public class EmpTableModel extends ListTableModel {
                     emp.setMiddleName((String) val);
                     break;
                 case 4:
-                    emp.setAppoint((String) val);
-                    break;
-                case 5:
                     emp.setHireDate((Date) val);
                     break;
-                case 6:
+                case 5:
                     emp.setFireDate((Date) val);
+                    break;
+                case 6:
+                    emp.setAppoint((Appoint) val);
                     break;
                 default:
                     System.err.println("tabel:columnIndex is out of range");
@@ -108,17 +101,20 @@ public class EmpTableModel extends ListTableModel {
                 case 3:
                     return emp.getMiddleName();
                 case 4:
-                    return emp.getAppoint();
-                case 5:
                     return emp.getHireDate();
-                case 6:
+                case 5:
                     return emp.getFireDate();
+                case 6:
+                    return emp.getAppoint();
                 default:
                     return "DATA_NO_FOUND";
             }
 
     }
 
+    @Override
+    public ArrayList<Emp> getList() {
+        return DBSrv.getInstance().getList(Emp.class);
 
-
+    }
 }

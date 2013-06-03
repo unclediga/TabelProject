@@ -1,8 +1,8 @@
 package model;
 
 import db.DBSrv;
-import db.ScheduleDataSource;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -11,12 +11,27 @@ import java.util.HashMap;
  *
  */
 public class ScheduleTableModel extends ListTableModel {
-    public ScheduleTableModel(DBSrv dbsrv) {
-        this.ds = new ScheduleDataSource(dbsrv);
-        this.data = ds.getData(true);
-        this.changedObjMap = new HashMap<Object, String>(this.data.size());
-        this.columnClasses = ds.getColumnClasses();
-        this.columnNames = ds.getColumnNames();
+    public ScheduleTableModel() {
+        this.columnNames = new String[]{
+                "ID", "EMP", "ДатаНачала", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск", "Всего"
+        };
+        this.columnClasses =
+                new Class[]{
+                Integer.class,
+                Emp.class,
+                Date.class,
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class};
+
+        this.changes = new HashMap<Schedule, String>(DBSrv.INIT_CHANGES_COUNT);
+        this.data = this.getList();
+
     }
 
     /**
@@ -33,10 +48,7 @@ public class ScheduleTableModel extends ListTableModel {
 
     @Override
     public Object createNewObject() {
-
-        Schedule schedule = new Schedule();
-        schedule.setDateFrom(new Date());
-        return schedule;
+        return new Schedule();
     }
 
     /**
@@ -49,6 +61,8 @@ public class ScheduleTableModel extends ListTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         super.setValueAt(aValue, rowIndex, columnIndex);
+        // Если обновились значения дней, то поле Всего тоже пересчиталось.
+        // Надо обновить значение из модели
         if(columnIndex > 1 && columnIndex != 10){
             fireTableCellUpdated(rowIndex,10);
         }
@@ -61,6 +75,8 @@ public class ScheduleTableModel extends ListTableModel {
             return;
         }
 
+        assert (obj instanceof Schedule);
+
         if (!(obj instanceof Schedule)) {
             System.err.println("Чё-то не то передал");
             return;
@@ -71,8 +87,8 @@ public class ScheduleTableModel extends ListTableModel {
         // если INSERT или DELETE (что неверно) уже были
         // нечего сбрасывать в UPDATE. Потом пойдут ошибки при обновлении
 
-        if (!changedObjMap.containsKey(schedule)) {
-            changedObjMap.put(schedule, "U");
+        if (!changes.containsKey(schedule)) {
+            changes.put(schedule, "U");
         }
 
 
@@ -137,4 +153,8 @@ public class ScheduleTableModel extends ListTableModel {
         return null;
     }
 
+    @Override
+    public ArrayList getList() {
+        return DBSrv.getInstance().getList(Schedule.class);
+    }
 }

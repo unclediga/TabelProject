@@ -1,18 +1,20 @@
 package model;
 
+import db.DBSrv;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  *
  */
-public abstract class ListTableModel extends AbstractTableModel {
-    protected ArrayList<Object> data = null;
-    protected Map<Object,String> changedObjMap = null;
+public abstract class ListTableModel<T> extends AbstractTableModel {
+    protected ArrayList<T> data = null;
+    protected Map<T,String> changes = null;
     protected Class[] columnClasses = null;
     protected String[] columnNames = null;
-    protected ModelDataSource ds;
 
 
     @Override
@@ -54,33 +56,33 @@ public abstract class ListTableModel extends AbstractTableModel {
         }
     }
 
-    public void saveChanges() {
-        ds.saveChanges(changedObjMap);
+    public void saveChanges() throws Exception {
+        DBSrv.getInstance().putAll((Map<Object, String>) changes);
+        DBSrv.getInstance().doCommit();
+        changes.clear();
         fireTableDataChanged();
     }
 
     public void addRow() {
 
-        Object newObj = createNewObject();
+        T newObj = createNewObject();
         data.add(newObj);
-        changedObjMap.put(newObj, "I");
+        changes.put(newObj, "I");
         fireTableRowsInserted(data.size(), data.size());
     }
-
-    public abstract Object createNewObject();
 
     public void removeRow(int i) {
         //если уже есть что-то по указанному объекту
         // просто удаляем все и оставляем одно удаление
         Object changedObj = data.get(i);
-        if (changedObjMap.containsKey(changedObj)){
-            if(changedObjMap.get(changedObj).equals("I")){
-                changedObjMap.remove(changedObj);
+        if (changes.containsKey(changedObj)){
+            if(changes.get(changedObj).equals("I")){
+                changes.remove(changedObj);
             }else {
-                changedObjMap.put(data.get(i),"D");
+                changes.put(data.get(i),"D");
             }
         }else{
-            changedObjMap.put(data.get(i),"D");
+            changes.put(data.get(i),"D");
         }
 
 
@@ -89,21 +91,25 @@ public abstract class ListTableModel extends AbstractTableModel {
 
     }
 
-    public abstract void setColumnValue(Object obj, int columnIndex, Object val);
-
-    public abstract Object getColumnValue(Object obj, int columnIndex);
-
     public void printChanges() {
-        for(Map.Entry e : changedObjMap.entrySet()){
+        for(Map.Entry e : changes.entrySet()){
             System.out.println(e.getKey().toString()+":" +e.getValue());
         }
 
     }
 
     public void refresh(){
-        changedObjMap.clear();
-        data = ds.getData(true);
+        changes.clear();
+        data = getList();
         fireTableDataChanged();
 
     }
+
+    public abstract T createNewObject();
+
+    public abstract ArrayList<T> getList();
+
+    public abstract void setColumnValue(Object obj, int columnIndex, Object val);
+
+    public abstract Object getColumnValue(Object obj, int columnIndex);
 }

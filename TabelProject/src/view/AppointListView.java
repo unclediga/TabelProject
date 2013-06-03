@@ -1,7 +1,10 @@
 package view;
 
 import db.DBSrv;
-import model.*;
+import model.AppointTableModel;
+import model.Emp;
+import model.Leave;
+import model.LeaveTableModel;
 import view.editor.DateColumnEditor;
 import view.editor.EmpColumnEditor;
 
@@ -15,28 +18,22 @@ import java.util.GregorianCalendar;
 /**
  *
  */
-public class ScheduleListView extends JPanel {
+public class AppointListView extends JPanel {
+
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final ScheduleTableModel model;
+    private final AppointTableModel model;
     private final JTable table;
 
-    public ScheduleListView(FormWindow frm, DBSrv dbsrv) {
-
+    public AppointListView(FormWindow frm, DBSrv dbsrv) {
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));
 
-
-        model = new ScheduleTableModel();
-
-
+        model = new AppointTableModel();
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());
         table.setDefaultEditor(Emp.class, new EmpColumnEditor(dbsrv));
         table.setRowHeight(table.getRowHeight() + 5);
-        table.getColumnModel().getColumn(1).setPreferredWidth(350);
-        table.getColumnModel().getColumn(2).setPreferredWidth(120);
-
         add(new JScrollPane(table), BorderLayout.CENTER);
 
         // КНОПКИ
@@ -74,21 +71,22 @@ public class ScheduleListView extends JPanel {
                 model.addRow();
             }
         });
+
         btnDel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
             }
         });
+
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.saveChanges();
-                    Msg.info(ScheduleListView.this, "Операция выполнена успешно.");
-
+                    Msg.info(AppointListView.this, "Операция выполнена успешно.");
                 } catch (Exception e1) {
-                    Msg.error(ScheduleListView.this,"Не удалось сохранить данные!");
+                    Msg.error(AppointListView.this, "Не удалось сохранить данные!");
                 }
             }
         });
@@ -99,7 +97,6 @@ public class ScheduleListView extends JPanel {
                 model.refresh();
             }
         });
-
 
     }
 }

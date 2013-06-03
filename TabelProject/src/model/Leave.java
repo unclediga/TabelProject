@@ -31,7 +31,11 @@ public class Leave {
     }
 
     public Leave() {
-
+         this.id = null;
+        this.emp = null;
+        this.tleave_id = Leave.getDefaultType();
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
     }
 
     public Date getDateTo() {

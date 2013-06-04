@@ -76,7 +76,7 @@ public class EmpTable extends JFrame {
         // Чтоб не сразу открувалась, а опосля двух щелчков
         empEditor.setClickCountToStart(2);
         //table.getColumnModel().getColumn(2).setCellEditor(empEditor);
-        table.getColumnModel().getColumn(2).setCellEditor(new EmpColumnEditor(new DBSrv()));
+        table.getColumnModel().getColumn(2).setCellEditor(new EmpColumnEditor());
 
         table.setRowHeight(table.getRowHeight() + 5);
 

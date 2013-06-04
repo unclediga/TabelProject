@@ -2,7 +2,6 @@ package ch11;// CustomListSelection.java
 // Реализация особого режима выделения
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import java.awt.*;
 
 public class CustomListSelection extends JFrame {
   private String[] data = { "Мороженное", "Курица",

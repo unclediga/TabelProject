@@ -1,7 +1,8 @@
 package ch11;// ComboBoxRendering.java
 // Отображение элементов раскрывающегося списка
 import javax.swing.*;
-import com.porty.swing.*;
+import com.porty.swing.ImageListCellRenderer;
+import com.porty.swing.ImageListElement;
 
 import java.awt.*;
 

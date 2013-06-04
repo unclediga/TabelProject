@@ -45,7 +45,7 @@ public class Diva {
   public static void createUI() {
     JFrame f = new JFrame ("Diva");
     
-    LayerUI<JPanel> layerUI = new SpotlightLayerUI();
+    LayerUI<JPanel> layerUI = new Test1LayerUI();
     JPanel panel = createPanel();
     JLayer<JPanel> jlayer = new JLayer<JPanel>(panel, layerUI);
     

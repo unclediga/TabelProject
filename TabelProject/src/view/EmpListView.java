@@ -105,21 +105,11 @@ public class EmpListView extends JPanel {
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                FormWindow frmTrans = new FormWindow("Назначения");
-//                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
-                JDialog frmTrans = new JDialog((Frame) frm.getTopLevelAncestor());
-                frmTrans.add(new JButton("New"));
-                frmTrans.add(new JButton("New2"));
-
+                ModalWindow frmTrans = new ModalWindow("Назначения",frm);
+                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
+                frm.getDesktopPane().add(frmTrans);
+                frmTrans.pack();
                 frmTrans.setVisible(true);
-
-                //frm.add(frmTrans);
-
-//                try {
-//                   frmTrans.setSelected(true);
-//                } catch (PropertyVetoException e1) {
-//                    e1.printStackTrace();
-//                }
             }
         });
     }

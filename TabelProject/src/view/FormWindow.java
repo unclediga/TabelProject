@@ -19,7 +19,7 @@ public class FormWindow extends JInternalFrame implements ActionListener {
         try {
             FormWindow.this.setClosed(true);
         } catch (PropertyVetoException e1) {
-            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e1.printStackTrace();
         }
     }
 }

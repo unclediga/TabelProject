@@ -104,6 +104,16 @@ public class MainWindow extends JFrame {
             }
         });
 
+        JMenuItem srvTestWinItem = new JMenuItem("тестовое окно");
+        srvTestWinItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TestUtils.createTestWindow(desktop);
+            }
+        });
+
+
+
         // РАБОТНИКИ
         JMenuItem empListViewItem = new JMenuItem("Работники");
 //        empListViewItem.setPreferredSize(new Dimension(-1,20));
@@ -209,6 +219,7 @@ public class MainWindow extends JFrame {
         JMenu srvMenu = new JMenu("Сервис");
         menuBar.add(srvMenu);
         srvMenu.add(srvInsEmpItem);
+        srvMenu.add(srvTestWinItem);
 
 
     }

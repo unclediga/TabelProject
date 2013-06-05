@@ -21,7 +21,7 @@ public class TransListView extends JPanel {
     private final TransTableModel model;
     private final JTable table;
 
-    public TransListView(FormWindow frm) {
+    public TransListView(JInternalFrame frm) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));
@@ -59,7 +59,7 @@ public class TransListView extends JPanel {
         panelButton.add(btnExit);
         add(panelButton, BorderLayout.SOUTH);
 
-        btnExit.addActionListener(frm);
+        btnExit.addActionListener((ActionListener) frm);
 
         btnChanges.addActionListener(new ActionListener() {
             @Override

@@ -123,4 +123,9 @@ public class AppointMapper implements IMapper<Appoint> {
         }
         return appoints;
     }
+
+    @Override
+    public ArrayList<Appoint> getList(Object owner) {
+        return new ArrayList<Appoint>();
+    }
 }

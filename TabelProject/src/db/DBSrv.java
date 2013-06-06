@@ -162,6 +162,11 @@ public class DBSrv {
         return mapper.getList();
     }
 
+    public <T> ArrayList<T> getList(Class<T> cl,Object owner){
+        IMapper mapper = mappers.get(cl);
+        return mapper.getList(owner);
+    }
+
     public static DBSrv getInstance() {
         if (dbSrv == null){
             dbSrv = new DBSrv();

@@ -99,4 +99,9 @@ public class AppointTableModel extends ListTableModel<Appoint> {
         return DBSrv.getInstance().getList(Appoint.class);
     }
 
+    @Override
+    public ArrayList<Appoint> getList(Object owner) {
+        return DBSrv.getInstance().getList(Appoint.class,owner);
+    }
+
 }

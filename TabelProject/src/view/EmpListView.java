@@ -106,7 +106,8 @@ public class EmpListView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ModalWindow frmTrans = new ModalWindow("Назначения",frm);
-                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
+                int row = table.getSelectedRow();
+                frmTrans.add(new TransListView(frmTrans,model.getRowObject(table.convertRowIndexToModel(row))), BorderLayout.CENTER);
                 frm.getDesktopPane().add(frmTrans);
                 frmTrans.pack();
                 frmTrans.setVisible(true);

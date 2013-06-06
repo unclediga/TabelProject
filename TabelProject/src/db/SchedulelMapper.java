@@ -165,4 +165,9 @@ public class SchedulelMapper implements IMapper<Schedule> {
 
         return schedules;
     }
+
+    @Override
+    public ArrayList<Schedule> getList(Object owner) {
+        return new ArrayList<Schedule>();
+    }
 }

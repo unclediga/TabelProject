@@ -113,4 +113,9 @@ public class IllTableModel extends ListTableModel<Ill> {
     public ArrayList<Ill> getList() {
         return DBSrv.getInstance().getList(Ill.class);
     }
+
+    @Override
+    public ArrayList<Ill> getList(Object owner) {
+        return DBSrv.getInstance().getList(Ill.class,owner);
+    }
 }

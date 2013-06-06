@@ -15,6 +15,7 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
     protected Map<T,String> changes = null;
     protected Class[] columnClasses = null;
     protected String[] columnNames = null;
+    private Object owner;
 
 
     @Override
@@ -109,7 +110,21 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
 
     public abstract ArrayList<T> getList();
 
+    public abstract ArrayList<T> getList(Object owner);
+
     public abstract void setColumnValue(Object obj, int columnIndex, Object val);
 
     public abstract Object getColumnValue(Object obj, int columnIndex);
+
+    public void setOwner(Object owner) {
+        this.owner = owner;
+    }
+
+    public Object getOwner() {
+        return owner;
+    }
+
+    public T getRowObject(int rowIndex){
+        return data.get(rowIndex);
+    }
 }

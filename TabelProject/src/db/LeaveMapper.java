@@ -134,4 +134,9 @@ public class LeaveMapper implements IMapper<Leave> {
         }
         return leaves;
     }
+
+    @Override
+    public ArrayList<Leave> getList(Object owner) {
+        return new ArrayList<Leave>();
+    }
 }

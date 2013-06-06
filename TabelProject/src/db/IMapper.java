@@ -11,5 +11,5 @@ public interface IMapper<T> {
     public void put(T object);
     public void remove(T object);
     public ArrayList<T> getList();
-
+    public ArrayList<T> getList(Object owner);
 }

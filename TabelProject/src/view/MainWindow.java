@@ -275,7 +275,7 @@ public class MainWindow extends JFrame {
                 break;
             case TRANS:
                 FormWindow frmTrans = new FormWindow("Назначения");
-                frmTrans.add(new TransListView(frmTrans), BorderLayout.CENTER);
+                frmTrans.add(new TransListView(frmTrans,null), BorderLayout.CENTER);
                 desktop.add(frmTrans);
                 frmTrans.pack();
                 frmTrans.setVisible(true);

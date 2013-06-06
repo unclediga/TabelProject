@@ -157,4 +157,9 @@ public class ScheduleTableModel extends ListTableModel {
     public ArrayList getList() {
         return DBSrv.getInstance().getList(Schedule.class);
     }
+
+    @Override
+    public ArrayList getList(Object owner) {
+        return DBSrv.getInstance().getList(Schedule.class,owner);
+    }
 }

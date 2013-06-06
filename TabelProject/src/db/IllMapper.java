@@ -129,4 +129,9 @@ public class IllMapper implements IMapper<Ill> {
 
         return ills;
     }
+
+    @Override
+    public ArrayList<Ill> getList(Object owner) {
+        return new ArrayList<Ill>();
+    }
 }

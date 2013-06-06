@@ -21,15 +21,13 @@ public class TransListView extends JPanel {
     private final TransTableModel model;
     private final JTable table;
 
-    public TransListView(JInternalFrame frm) {
+    public TransListView(JInternalFrame frm,Emp owner) {
 
         setBackground(Color.darkGray);
         setLayout(new BorderLayout(0,0));
 
 
-        model = new TransTableModel();
-
-
+        model = new TransTableModel(owner);
 
         table = new JTable(model);
         table.setDefaultEditor(Date.class, new DateColumnEditor());

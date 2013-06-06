@@ -137,4 +137,46 @@ public class TransMapper implements IMapper<Trans> {
         }
         return transes;
     }
+
+    @Override
+    public ArrayList<Trans> getList(Object owner) {
+
+        ArrayList<Trans> transes = new ArrayList<Trans>(100);
+
+        Emp empOwner = (Emp) owner;
+
+        if (owner == null){
+            return transes;
+        }
+
+        if (conn == null) {
+            System.err.println("No connect!!");
+            return transes;
+        }
+        String sql = "" +
+                "SELECT id,emp_id,d_from,appoint_id,wage_rate FROM DDT_TRANS\n" +
+                "WHERE emp_id = ?";
+
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, empOwner.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Trans trans = new Trans();
+                trans.setId(rs.getInt("id"));
+                trans.setDateFrom(rs.getDate("d_from"));
+                trans.setWageRate(rs.getDouble("wage_rate"));
+                Emp emp = DBSrv.getInstance().getEmpById(new Integer(rs.getInt("emp_id")));
+                trans.setEmp(emp);
+                Appoint appoint = (Appoint) DBSrv.getInstance().get(rs.getInt("appoint_id"), Appoint.class);
+                trans.setAppoint(appoint);
+
+                transes.add(trans);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transes;
+    }
 }

@@ -11,8 +11,6 @@ import java.util.HashMap;
  */
 public class TransTableModel extends ListTableModel<Trans>{
 
-
-
     public TransTableModel() {
         this.columnNames =         new String[]{
                 "ID", "EMP", "ДатаНачала", "Должность", "Ставка"
@@ -25,6 +23,18 @@ public class TransTableModel extends ListTableModel<Trans>{
         this.changes = new HashMap<Trans, String>(DBSrv.INIT_CHANGES_COUNT);
 
     }
+    public TransTableModel(Object owner) {
+        this.columnNames =         new String[]{
+                "ID", "EMP", "ДатаНачала", "Должность", "Ставка"
+        };
+        this.columnClasses =                 new Class[]{
+                Integer.class, Emp.class, Date.class, Appoint.class, Double.class};
+
+
+        this.data = this.getList(owner);
+        this.changes = new HashMap<Trans, String>(DBSrv.INIT_CHANGES_COUNT);
+
+    }
 
     @Override
     public Trans createNewObject() {
@@ -34,6 +44,11 @@ public class TransTableModel extends ListTableModel<Trans>{
     @Override
     public ArrayList<Trans> getList() {
         return DBSrv.getInstance().getList(Trans.class);
+    }
+
+    @Override
+    public ArrayList<Trans> getList(Object owner) {
+        return DBSrv.getInstance().getList(Trans.class,owner);
     }
 
     @Override

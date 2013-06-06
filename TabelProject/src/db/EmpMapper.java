@@ -144,4 +144,9 @@ public class EmpMapper implements IMapper<Emp> {
         return emps;
 
     }
+
+    @Override
+    public ArrayList<Emp> getList(Object owner) {
+        return new ArrayList<Emp>();
+    }
 }

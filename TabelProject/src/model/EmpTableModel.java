@@ -15,10 +15,10 @@ public class EmpTableModel extends ListTableModel<Emp> {
     public EmpTableModel() {
 
         this.columnNames = new String[]{
-                "ID", "Фамилия", "Имя", "Отчество", "ДатаПриема","ДатаУвольнения","Должность"
+                "ID", "Фамилия", "Имя", "Отчество", "ДатаПриема","ДатаУвольнения"
         };
         this.columnClasses =   new Class[]{
-                Integer.class, String.class, String.class, String.class, Date.class, Date.class, Appoint.class};
+                Integer.class, String.class, String.class, String.class, Date.class, Date.class};
 
         this.data = this.getList();
         this.changes = new HashMap<Emp, String>(DBSrv.INIT_CHANGES_COUNT);
@@ -69,9 +69,6 @@ public class EmpTableModel extends ListTableModel<Emp> {
                 case 5:
                     emp.setFireDate((Date) val);
                     break;
-                case 6:
-                    emp.setAppoint((Appoint) val);
-                    break;
                 default:
                     System.err.println("tabel:columnIndex is out of range");
             }
@@ -104,8 +101,6 @@ public class EmpTableModel extends ListTableModel<Emp> {
                     return emp.getHireDate();
                 case 5:
                     return emp.getFireDate();
-                case 6:
-                    return emp.getAppoint();
                 default:
                     return "DATA_NO_FOUND";
             }
@@ -116,5 +111,13 @@ public class EmpTableModel extends ListTableModel<Emp> {
     public ArrayList<Emp> getList() {
         return DBSrv.getInstance().getList(Emp.class);
 
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnClasses[columnIndex] == Appoint.class){
+            return false;
+        }
+        return super.isCellEditable(rowIndex, columnIndex);
     }
 }

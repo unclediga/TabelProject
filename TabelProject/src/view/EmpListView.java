@@ -1,6 +1,7 @@
 package view;
 
 import model.Appoint;
+import model.Emp;
 import model.EmpTableModel;
 import view.editor.AppointColumnEditor;
 import view.editor.DateColumnEditor;
@@ -105,9 +106,14 @@ public class EmpListView extends JPanel {
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ModalWindow frmTrans = new ModalWindow("Назначения",frm);
                 int row = table.getSelectedRow();
-                frmTrans.add(new TransListView(frmTrans,model.getRowObject(table.convertRowIndexToModel(row))), BorderLayout.CENTER);
+                Emp owner = model.getRowObject(table.convertRowIndexToModel(row));
+                if (owner == null) {
+                    Msg.info(frm,"Не выбран работник!");
+                    return;
+                }
+                ModalWindow frmTrans = new ModalWindow("Назначения:("+owner+")",frm);
+                frmTrans.add(new TransListView(frmTrans, owner), BorderLayout.CENTER);
                 frm.getDesktopPane().add(frmTrans);
                 frmTrans.pack();
                 frmTrans.setVisible(true);

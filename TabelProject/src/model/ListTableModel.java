@@ -15,7 +15,7 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
     protected Map<T,String> changes = null;
     protected Class[] columnClasses = null;
     protected String[] columnNames = null;
-    private Object owner;
+    protected Object owner;
 
 
     @Override
@@ -101,7 +101,11 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
 
     public void refresh(){
         changes.clear();
-        data = getList();
+        if (owner != null) {
+            data = getList(owner);
+        }else {
+            data = getList();
+        }
         fireTableDataChanged();
 
     }
@@ -125,6 +129,14 @@ public abstract class ListTableModel<T> extends AbstractTableModel {
     }
 
     public T getRowObject(int rowIndex){
-        return data.get(rowIndex);
+        // какие-либо нескладушки с получением из спсика
+        // 1) Уже нет такого индекса
+        // 2) пустой data
+        try {
+            return data.get(rowIndex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

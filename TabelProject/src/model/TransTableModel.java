@@ -31,14 +31,24 @@ public class TransTableModel extends ListTableModel<Trans>{
                 Integer.class, Emp.class, Date.class, Appoint.class, Double.class};
 
 
-        this.data = this.getList(owner);
+        if (owner != null) {
+            this.owner = owner;
+            this.data = this.getList(owner);
+        }else{
+            this.data = this.getList();
+        }
         this.changes = new HashMap<Trans, String>(DBSrv.INIT_CHANGES_COUNT);
-
     }
 
     @Override
     public Trans createNewObject() {
-        return new Trans();
+        Trans trans = new Trans();
+        Emp owner = (Emp) this.getOwner();
+
+        if (owner != null) {
+            trans.setEmp(owner);
+        }
+        return trans;
     }
 
     @Override

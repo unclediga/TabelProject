@@ -5,6 +5,7 @@ import model.*;
 import view.editor.AppointColumnEditor;
 import view.editor.DateColumnEditor;
 import view.editor.EmpColumnEditor;
+import view.editor.WageRateTypeColumnEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,7 @@ public class TransListView extends JPanel {
         table.setDefaultEditor(Date.class, new DateColumnEditor());
         table.setDefaultEditor(Emp.class, new EmpColumnEditor());
         table.setDefaultEditor(Appoint.class, new AppointColumnEditor());
+        table.setDefaultEditor(WageRateType.class, new WageRateTypeColumnEditor());
 
 
         table.setRowHeight(table.getRowHeight() + 5);

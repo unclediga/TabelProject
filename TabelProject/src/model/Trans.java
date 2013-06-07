@@ -10,6 +10,7 @@ public class Trans {
     Emp emp;
     Date dateFrom;
     Appoint appoint;
+    WageRateType wageRateType;
     double wageRate;
 
     public Trans(Integer id, Emp emp, Date dateFrom, Appoint appoint, Float wageRate) {
@@ -58,6 +59,13 @@ public class Trans {
 
     public void setAppoint(Appoint appoint) {
         this.appoint = appoint;
+    }
+
+    public WageRateType getWageRateType() {
+        return wageRateType;
+    }
+    public void setWageRateType(WageRateType wageRateType) {
+        this.wageRateType = wageRateType;
     }
 
     public double getWageRate() {

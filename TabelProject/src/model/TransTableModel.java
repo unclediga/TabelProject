@@ -10,26 +10,21 @@ import java.util.HashMap;
  *
  */
 public class TransTableModel extends ListTableModel<Trans>{
-
-    public TransTableModel() {
+    {
         this.columnNames =         new String[]{
-                "ID", "EMP", "ДатаНачала", "Должность", "Ставка"
+                "ID", "EMP", "ДатаНачала", "Должность", "Вид","Ставка"
         };
         this.columnClasses =                 new Class[]{
-                Integer.class, Emp.class, Date.class, Appoint.class, Double.class};
+                Integer.class, Emp.class, Date.class, Appoint.class, WageRateType.class, Double.class};
 
+    }
+    public TransTableModel() {
 
         this.data = this.getList();
         this.changes = new HashMap<Trans, String>(DBSrv.INIT_CHANGES_COUNT);
 
     }
     public TransTableModel(Object owner) {
-        this.columnNames =         new String[]{
-                "ID", "EMP", "ДатаНачала", "Должность", "Ставка"
-        };
-        this.columnClasses =                 new Class[]{
-                Integer.class, Emp.class, Date.class, Appoint.class, Double.class};
-
 
         if (owner != null) {
             this.owner = owner;
@@ -97,6 +92,9 @@ public class TransTableModel extends ListTableModel<Trans>{
                 trans.setAppoint((Appoint) val);
                 break;
             case 4:
+                trans.setWageRateType((WageRateType) val);
+                break;
+            case 5:
                 trans.setWageRate((Double) val);
                 break;
             default:
@@ -128,6 +126,8 @@ public class TransTableModel extends ListTableModel<Trans>{
             case 3:
                 return trans.getAppoint();
             case 4:
+                return trans.getWageRateType();
+            case 5:
                 return trans.getWageRate();
             default:
                 System.err.println("LeaveTableModel:columnIndex is out of range");

@@ -2,6 +2,7 @@ package test;
 
 import db.DBSrv;
 import model.Emp;
+import model.WageRateType;
 import view.FormWindow;
 import view.ModalWindow;
 
@@ -93,6 +94,15 @@ public class TestUtils {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createModalTestWin2(ifmain);
+            }
+        });
+
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (WageRateType w : WageRateType.values()) {
+                    System.out.println(w.getName()+" "+w.toString()+" "+w);
+                }
             }
         });
         ifmain.add(lb, BorderLayout.CENTER);

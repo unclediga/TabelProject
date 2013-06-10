@@ -59,6 +59,8 @@ public class DBSrv {
         mappers.put(Schedule.class, new SchedulelMapper(conn));
         mappers.put(Appoint.class, new AppointMapper(conn));
         mappers.put(Trans.class, new TransMapper(conn));
+        mappers.put(Tabel.class, new TabelMapper(conn));
+        mappers.put(TabelDay.class, new TabelDayMapper(conn));
 
     }
 
@@ -142,6 +144,25 @@ public class DBSrv {
         return id;
     }
 
+    public Integer getNextDayId() {
+        int id = 0;
+        if (conn == null) {
+            System.err.println("No connect!!");
+            return 0;
+        }
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT DDT_TABEL_DAY_SEQ.NEXTVAL");
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public Object get(Integer objectId,Class objectClass){
         IMapper mapper = mappers.get(objectClass);
         return mapper.get(objectId);
@@ -158,6 +179,10 @@ public class DBSrv {
     }
 
     public <T> ArrayList<T> getList(Class<T> cl){
+        if(!mappers.containsKey(cl)){
+            System.err.println("Can not find mapper for "+cl);
+            throw new Error("Can not find mapper for "+cl);
+        }
         IMapper mapper = mappers.get(cl);
         return mapper.getList();
     }
@@ -218,5 +243,13 @@ public class DBSrv {
             }
             throw new Exception("FAILED");
         }
+    }
+
+    public Tabel getTabelById(Integer tabel_id) {
+        return new TabelMapper(conn).get(tabel_id);
+    }
+
+    public Trans getTransById(Integer trans_id) {
+        return new TransMapper(conn).get(trans_id);
     }
 }

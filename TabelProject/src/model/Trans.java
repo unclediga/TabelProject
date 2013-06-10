@@ -75,4 +75,9 @@ public class Trans {
     public void setWageRate(double wageRate) {
         this.wageRate = wageRate;
     }
+
+    @Override
+    public String toString() {
+        return ""+wageRate+" "+appoint;
+    }
 }

@@ -254,7 +254,7 @@ public class MainWindow extends JFrame {
                 break;
             case TBL:
                 FormWindow frmTbl = new FormWindow("Табель");
-                frmTbl.add(new EmpListView(frmTbl), BorderLayout.CENTER);
+                frmTbl.add(new TabelListView(frmTbl), BorderLayout.CENTER);
                 desktop.add(frmTbl);
                 frmTbl.pack();
                 frmTbl.setVisible(true);

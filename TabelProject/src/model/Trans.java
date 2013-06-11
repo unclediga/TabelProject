@@ -78,6 +78,6 @@ public class Trans {
 
     @Override
     public String toString() {
-        return ""+wageRate+" "+appoint;
+        return ""+appoint+"("+wageRate+" "+wageRateType+")";
     }
 }

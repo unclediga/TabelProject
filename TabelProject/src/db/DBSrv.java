@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
 
 /**
@@ -66,7 +65,7 @@ public class DBSrv {
 
     public static java.sql.Date UtilToSQL(java.util.Date d) {
         if (d != null)
-            return new Date(d.getTime());
+            return new java.sql.Date(d.getTime());
         else
             return null;
     }
@@ -251,5 +250,18 @@ public class DBSrv {
 
     public Trans getTransById(Integer trans_id) {
         return new TransMapper(conn).get(trans_id);
+    }
+
+    public ArrayList<Tabel> getTabel(java.util.Date tabelDate) {
+        if(!mappers.containsKey(Tabel.class)){
+            System.err.println("Can not find mapper for TABEL!");
+            throw new Error("Can not find mapper for TABEL!");
+        }
+        TabelMapper mapper = (TabelMapper) mappers.get(Tabel.class);
+        return mapper.getList(tabelDate);
+    }
+
+    public ArrayList<Tabel> getNewTabel(java.util.Date tabelDate) {
+        return null;
     }
 }

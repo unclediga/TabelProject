@@ -12,7 +12,7 @@ public class TabelMapper implements IMapper<Tabel> {
 
     private final Connection conn;
     private final String[] fields = new String[]{
-            "id","tyear","tmonth","row_num","emp_id","trans_id"
+            "id","dat","row_num","emp_id","trans_id"
     };
 
 
@@ -60,8 +60,7 @@ public class TabelMapper implements IMapper<Tabel> {
     private void fillObject(ResultSet rs,Tabel tabel) throws SQLException {
 
         tabel.setId(rs.getInt("id"));
-        tabel.setTyear(rs.getInt("tyear"));
-        tabel.setTmonth(rs.getInt("tmonth"));
+        tabel.setTabelDate(rs.getDate("dat"));
         tabel.setRowNum(rs.getInt("row_num"));
         Emp emp = DBSrv.getInstance().getEmpById(new Integer(rs.getInt("emp_id")));
         tabel.setEmp(emp);
@@ -110,12 +109,11 @@ public class TabelMapper implements IMapper<Tabel> {
         }
         try {
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1,tabel.getTyear());
-            st.setInt(2, tabel.getTmonth());
-            st.setInt(3, tabel.getRowNum());
-            st.setInt(4, tabel.getEmp().getId());
-            st.setInt(5, tabel.getTrans().getId());
-            st.setInt(6, tabel.getId());
+            st.setDate(1,DBSrv.UtilToSQL(tabel.getTabelDate()));
+            st.setInt(2, tabel.getRowNum());
+            st.setInt(3, tabel.getEmp().getId());
+            st.setInt(4, tabel.getTrans().getId());
+            st.setInt(5, tabel.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,6 +154,33 @@ public class TabelMapper implements IMapper<Tabel> {
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SELECT());
+            while (rs.next()) {
+                Tabel tabel = new Tabel();
+                fillObject(rs,tabel);
+                tabels.add(tabel);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tabels;
+    }
+
+
+    public ArrayList<Tabel> getList(java.util.Date tabelDate) {
+
+        ArrayList<Tabel> tabels = new ArrayList<Tabel>(100);
+
+        if (conn == null) {
+            System.err.println("No connect!!");
+            return tabels;
+        }
+
+        try {
+            PreparedStatement st = conn.prepareStatement(
+                    SELECT()+" WHERE dat = ?" );
+            st.setDate(1,DBSrv.UtilToSQL(tabelDate));
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Tabel tabel = new Tabel();
                 fillObject(rs,tabel);

@@ -8,13 +8,13 @@ import java.util.Date;
  */
 public class Tabel {
     Integer id;
-    Integer tyear;
-    Integer tmonth;
+
+    Date tabelDate;
+
     Integer rowNum;
     Emp emp;
     Trans trans;
     ArrayList<TabelDay> days;
-
     public Tabel() {
         days = new ArrayList<TabelDay>(31);
         for (int i = 0; i < 31; i++) {
@@ -30,20 +30,12 @@ public class Tabel {
         this.id = id;
     }
 
-    public Integer getTyear() {
-        return tyear;
+    public Date getTabelDate() {
+        return tabelDate;
     }
 
-    public void setTyear(Integer tyear) {
-        this.tyear = tyear;
-    }
-
-    public Integer getTmonth() {
-        return tmonth;
-    }
-
-    public void setTmonth(Integer tmonth) {
-        this.tmonth = tmonth;
+    public void setTabelDate(Date tabelDate) {
+        this.tabelDate = tabelDate;
     }
 
     public Integer getRowNum() {

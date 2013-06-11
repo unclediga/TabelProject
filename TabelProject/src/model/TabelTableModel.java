@@ -14,6 +14,7 @@ public class TabelTableModel extends ListTableModel<Tabel>{
 
     private final int columnCount;
 
+
     public TabelTableModel() {
 
         columnCount = 4 + 31;
@@ -55,12 +56,12 @@ public class TabelTableModel extends ListTableModel<Tabel>{
 
     @Override
     public ArrayList<Tabel> getList() {
-        return DBSrv.getInstance().getList(Tabel.class);
+        return DBSrv.getInstance().getTabel(new Date());
     }
 
     @Override
     public ArrayList<Tabel> getList(Object owner) {
-        return DBSrv.getInstance().getList(Tabel.class,owner);
+        return null;
     }
 
     @Override
@@ -137,5 +138,13 @@ public class TabelTableModel extends ListTableModel<Tabel>{
         }
         System.err.println("Column index:"+columnIndex+" higher column count:"+columnCount);
         return null;
+    }
+
+    public void fillTabel(Date tabelDate) {
+        this.data = DBSrv.getInstance().getTabel(tabelDate);
+        this.changes.clear();
+        if (data.size() == 0) {
+            DBSrv.getInstance().getNewTabel(tabelDate);
+        }
     }
 }

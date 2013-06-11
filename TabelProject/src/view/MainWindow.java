@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
+
 /**
  *
  */
@@ -256,6 +258,11 @@ public class MainWindow extends JFrame {
                 FormWindow frmTbl = new FormWindow("Табель");
                 frmTbl.add(new TabelListView(frmTbl), BorderLayout.CENTER);
                 desktop.add(frmTbl);
+                try {
+                    frmTbl.setMaximum(true);
+                } catch (PropertyVetoException e) {
+                    System.err.println("Кто-то дал veto на maximize окошка!");
+                }
                 frmTbl.pack();
                 frmTbl.setVisible(true);
                 break;

@@ -114,6 +114,11 @@ public class EmpTableModel extends ListTableModel<Emp> {
     }
 
     @Override
+    public ArrayList<Emp> getList(Object owner) {
+        return DBSrv.getInstance().getList(Emp.class,owner);
+    }
+
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         if(columnClasses[columnIndex] == Appoint.class){
             return false;

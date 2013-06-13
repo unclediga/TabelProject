@@ -109,4 +109,9 @@ public class LeaveTableModel extends ListTableModel<Leave> {
         return DBSrv.getInstance().getList(Leave.class);
     }
 
+    @Override
+    public ArrayList<Leave> getList(Object owner) {
+        return DBSrv.getInstance().getList(Leave.class,owner);
+    }
+
 }

@@ -47,6 +47,7 @@ public class DBSrv {
             return;
         } catch (SQLException e) {
             System.err.println("SQL Exception. See log!");
+            System.err.println(e.getMessage());
             return;
         }
 

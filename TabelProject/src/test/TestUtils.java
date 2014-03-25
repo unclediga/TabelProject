@@ -46,7 +46,7 @@ public class TestUtils {
 
                     Calendar c = new GregorianCalendar(2000, 1, 1);
                     c.set(2000 + rnd.nextInt(13), 1 + rnd.nextInt(12), 1 + rnd.nextInt(29));
-                    emps.add(new Emp(i, t.nextToken(), t.nextToken(), t.nextToken(), null,c.getTime(), new java.util.Date()));
+                    emps.add(new Emp(null, t.nextToken(), t.nextToken(), t.nextToken(), null,c.getTime(), new java.util.Date()));
                 }
                 i++;
             }
@@ -79,6 +79,15 @@ public class TestUtils {
             System.out.println("Prepare for inserting " + emp);
             DBSrv.getInstance().put(emp);
         }
+
+
+        try {
+            DBSrv.getInstance().doCommit();
+            System.out.println("Do commit");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void createTestWindow(final JDesktopPane desktop){

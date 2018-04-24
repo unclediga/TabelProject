@@ -70,13 +70,14 @@ public class ExcelTest1 {
 
         fmt = new SimpleDateFormat("dd-MMM");
 
-        Workbook wb;
+        Workbook wb = new HSSFWorkbook();
 
         /*
         if(args.length > 0 && args[0].equals("-xls")) wb = new HSSFWorkbook();
         else wb = new XSSFWorkbook();
         */
-        wb = new HSSFWorkbook();
+
+
 
         Map<String, CellStyle> styles = createStyles(wb);
 

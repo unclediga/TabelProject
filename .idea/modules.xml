@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CoreJava/CoreJava.iml" filepath="$PROJECT_DIR$/CoreJava/CoreJava.iml" group="TUTORIAL" />
+      <module fileurl="file://$PROJECT_DIR$/ExcelReport/ExcelReport.iml" filepath="$PROJECT_DIR$/ExcelReport/ExcelReport.iml" group="TUTORIAL" />
+      <module fileurl="file://$PROJECT_DIR$/Porty/Porty.iml" filepath="$PROJECT_DIR$/Porty/Porty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SunTutorial/SunTutorial.iml" filepath="$PROJECT_DIR$/SunTutorial/SunTutorial.iml" group="TUTORIAL" />
+      <module fileurl="file://$PROJECT_DIR$/SwingTables.iml" filepath="$PROJECT_DIR$/SwingTables.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TabelProject/TabelProject.iml" filepath="$PROJECT_DIR$/TabelProject/TabelProject.iml" group="WORK" />
+      <module fileurl="file://$PROJECT_DIR$/View/View.iml" filepath="$PROJECT_DIR$/View/View.iml" />
+    </modules>
+  </component>
+</project>
+

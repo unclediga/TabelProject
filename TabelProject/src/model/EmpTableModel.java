@@ -125,4 +125,5 @@ public class EmpTableModel extends ListTableModel<Emp> {
         }
         return super.isCellEditable(rowIndex, columnIndex);
     }
+
 }

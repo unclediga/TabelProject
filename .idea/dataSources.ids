@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Data Source" product="H2" version="1.3.171 (2013-03-17)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.3.171 (2013-03-17)" uuid="4c3a3fb7-393b-4e33-a396-89af59b19852">
+    <identifier-quote-string>&quot;</identifier-quote-string>
+    <synchronize>true</synchronize>
+    <jdbc-driver>org.h2.Driver</jdbc-driver>
+    <jdbc-url>jdbc:h2:/TEMP/testdb;JMX=TRUE</jdbc-url>
+    <user-name>sa</user-name>
+    <schema-pattern>TESTDB.PUBLIC</schema-pattern>
+    <default-dialect>H2</default-dialect>
+    <libraries>
+      <library>
+        <url>jar://C:/Libraries/h2/bin/h2-1.3.171.jar!/</url>
+      </library>
+    </libraries>
+    <schema name="PUBLIC" catalog="TESTDB"/>
+    <table name="ASSA" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="DECIMAL" length="65535" precision="32767" nullable="true" jdbcType="3"/>
+      <column name="NAME" sqlType="CHAR" length="100" precision="0" nullable="true" jdbcType="1"/>
+    </table>
+    <table name="DDT_APPOINT" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="NAME" sqlType="VARCHAR" length="100" precision="0" nullable="true" jdbcType="12"/>
+      <column name="SOCR" sqlType="VARCHAR" length="10" precision="0" nullable="true" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_9" columns="ID"/>
+    </table>
+    <table name="DDT_EMP" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="LNAME" sqlType="VARCHAR" length="100" precision="0" nullable="true" jdbcType="12"/>
+      <column name="FNAME" sqlType="VARCHAR" length="100" precision="0" nullable="true" jdbcType="12"/>
+      <column name="MNAME" sqlType="VARCHAR" length="100" precision="0" nullable="true" jdbcType="12"/>
+      <column name="D_HIRE" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <column name="D_FIRE" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <primary-key name="CONSTRAINT_3" columns="ID"/>
+      <exported-key name="DDT_ILL_EMP_FK" table="DDT_ILL" schema="PUBLIC" catalog="TESTDB" columns="EMP_ID"/>
+      <exported-key name="DDT_LEAVE_EMP_FK" table="DDT_LEAVE" schema="PUBLIC" catalog="TESTDB" columns="EMP_ID"/>
+    </table>
+    <table name="DDT_ILL" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="EMP_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="TILL_ID" sqlType="VARCHAR" length="3" precision="0" nullable="true" jdbcType="12"/>
+      <column name="D_FROM" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <column name="D_TO" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <primary-key name="CONSTRAINT_8" columns="ID"/>
+      <foreign-key name="DDT_ILL_EMP_FK" columns="EMP_ID" ref-table="DDT_EMP" ref-schema="PUBLIC" ref-catalog="TESTDB" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <index name="DDT_ILL_EMP_FK_INDEX_8" unique="false" columns="EMP_ID"/>
+    </table>
+    <table name="DDT_LEAVE" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="EMP_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="TLEAVE_ID" sqlType="VARCHAR" length="3" precision="0" nullable="true" jdbcType="12"/>
+      <column name="D_FROM" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <column name="D_TO" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <primary-key name="CONSTRAINT_F" columns="ID"/>
+      <foreign-key name="DDT_LEAVE_EMP_FK" columns="EMP_ID" ref-table="DDT_EMP" ref-schema="PUBLIC" ref-catalog="TESTDB" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <index name="DDT_LEAVE_EMP_FK_INDEX_F" unique="false" columns="EMP_ID"/>
+    </table>
+    <table name="DDT_SCHEDULE" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="EMP_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="D_FROM" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <column name="WEEK_DAY" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS1" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS2" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS3" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS4" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS5" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS6" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="HOURS7" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <primary-key name="CONSTRAINT_C" columns="ID"/>
+    </table>
+    <table name="DDT_TABEL" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="ROW_NUM" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="EMP_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="TRANS_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="DAT" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <primary-key name="CONSTRAINT_FC6" columns="ID"/>
+    </table>
+    <table name="DDT_TABEL_DAY" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="TABEL_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="DAY_NUM" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="DAY_TYPE" sqlType="VARCHAR" length="3" precision="0" nullable="true" jdbcType="12"/>
+      <column name="DAY_HOURS" sqlType="DECIMAL" length="5" precision="2" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_C5" columns="ID"/>
+    </table>
+    <table name="DDT_TRANS" schema="PUBLIC" catalog="TESTDB" type="TABLE">
+      <column name="ID" sqlType="INTEGER" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="EMP_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="D_FROM" sqlType="DATE" length="8" precision="0" nullable="true" jdbcType="91"/>
+      <column name="APPOINT_ID" sqlType="INTEGER" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="WAGE_RATE" sqlType="DECIMAL" length="5" precision="2" nullable="true" jdbcType="3"/>
+      <column name="WAGE_RATE_TYPE" sqlType="DECIMAL" length="1" precision="0" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_FC" columns="ID"/>
+    </table>
+  </data-source>
+</component>

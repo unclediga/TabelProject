@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="h2-1.3.171">
+    <CLASSES>
+      <root url="jar://C:/Libraries/h2/bin/h2-1.3.171.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://C:/Libraries/h2/docs/javadoc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://C:/Libraries/h2/src/main" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="JXLayer">
+    <CLASSES>
+      <root url="file://C:/Libraries/JXLayer" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://C:/Libraries/JXLayer" />
+    </SOURCES>
+    <jarDirectory url="file://C:/Libraries/JXLayer" recursive="false" />
+    <jarDirectory url="file://C:/Libraries/JXLayer" recursive="false" type="SOURCES" />
+  </library>
+</component>

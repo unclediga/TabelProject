@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/CoreJava/src/vol1/ch9/MenuTest.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/CustomTableEditor.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/FilterAndSelection.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/RegisteringTableRenderer.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/SimpleTableLook.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/TableDefaultEditing.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/UsingTableColumnModel.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch17/UsingTableHeader.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch3/InvokeLater.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch4/AWTLightweights.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch4/AWTPainting.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch4/DebugPainting.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch4/PaintingOtherComponents.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch4/RotatedUI.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch6/HelpSystemDemo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch6/JXLayerTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch6/LayeredPaneEffects.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Porty/src/ch6/LayeredTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/View/src/EmpTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../MyForms/NDFL_CERT/z2/m_НДФЛа.z2" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/../../MyForms/NDFL_CERT/z2/zrp_спрДоход.z2" charset="windows-1251" />
+  </component>
+</project>
+
